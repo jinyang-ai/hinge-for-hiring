@@ -77,16 +77,18 @@ export const HEAD_LH = 0.92;
 // Native sizes are shared verbatim with the 9:16 reel (BossCard/HeroProfile),
 // so the card proportions match the reference exactly.
 export const CARD_W = 393; // native
-export const CARD_H = 690; // native — content(~600) + action-bar clearance(78)
-export const PHOTO_H = 372; // native photo height (~54% — candidate card look)
-export const SHEET_TOP = 350; // native — sheet overlaps the photo by 22px
+export const CARD_H = 575; // native — wider card ⇒ a little shorter to fit 4:5
+export const PHOTO_H = 308; // native photo height (~54%) — leaves sheet clearance above the action bar
+export const SHEET_TOP = 288; // native — sheet overlaps the photo by 20px
 
-// floating (pre-expand) placement: whole card visible, centred, under headline
-export const CARD_SCALE = 1.08; // 393·1.08 ≈ 424 wide, 690·1.08 ≈ 745 tall
-export const CARD_W_R = CARD_W * CARD_SCALE; // rendered width ≈ 424
-export const CARD_H_R = CARD_H * CARD_SCALE; // rendered height ≈ 745
-export const CARD_LEFT = Math.round((REEL_W - CARD_W_R) / 2); // centred
-export const CARD_TOP = 132; // just under the headline (bottom ≈ 877)
+// floating (pre-expand) placement: whole card visible, centred, under headline.
+// Wider than before — fills ~74% of the frame width (was ~59%); everything on
+// the card scales up with it, and CARD_H is trimmed so it still fits vertically.
+export const CARD_SCALE = 1.35; // 393·1.35 ≈ 531 wide, 575·1.35 ≈ 776 tall
+export const CARD_W_R = CARD_W * CARD_SCALE; // rendered width ≈ 531
+export const CARD_H_R = CARD_H * CARD_SCALE; // rendered height ≈ 776
+export const CARD_LEFT = Math.round((REEL_W - CARD_W_R) / 2); // centred (gutter ≈ 95)
+export const CARD_TOP = 112; // just under the headline (bottom ≈ 888)
 
 // expand target: card grows to FILL WIDTH and pins to the top, becoming a
 // 720-wide phone viewport (4:5 shows a window into it — unlike 9:16 which

@@ -14,7 +14,7 @@ import * as Ic from "./icons2";
 const SEAL_GREY = "#a2a2a8";
 const GREEN = "#13bf69";
 
-const Hairline: React.FC<{ m?: string }> = ({ m = "13px 0" }) => (
+const Hairline: React.FC<{ m?: string }> = ({ m = "9px 0" }) => (
   <div style={{ height: 1, background: "var(--surface-25)", margin: m }} />
 );
 
@@ -37,13 +37,13 @@ export const PhotoInner: React.FC<{ c: Candidate }> = ({ c }) => (
 
 // Last seen · CTC · Location — 3-up, bordered top & bottom.
 const StatsRow: React.FC<{ c: Candidate }> = ({ c }) => (
-  <div style={{ display: "flex", marginTop: 12, borderTop: "1px solid var(--surface-25)", borderBottom: "1px solid var(--surface-25)" }}>
+  <div style={{ display: "flex", marginTop: 9, borderTop: "1px solid var(--surface-25)", borderBottom: "1px solid var(--surface-25)" }}>
     {[
       { v: c.lastSeen, l: "Last seen", today: c.lastSeen === "Today" },
       { v: c.ctc, l: "CTC" },
       { v: c.location, l: "Location" },
     ].map((st, i) => (
-      <div key={st.l} style={{ flex: 1, textAlign: "center", padding: "8px 4px", borderLeft: i ? "1px solid var(--surface-25)" : "none" }}>
+      <div key={st.l} style={{ flex: 1, textAlign: "center", padding: "6px 4px", borderLeft: i ? "1px solid var(--surface-25)" : "none" }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: st.today ? GREEN : "var(--surface-90)" }}>{st.today ? "● Today" : st.v}</div>
         <div style={{ fontSize: 10.5, color: "var(--surface-50)", marginTop: 1 }}>{st.l}</div>
       </div>
@@ -74,11 +74,11 @@ export const CandidateCard: React.FC<{ c: Candidate }> = ({ c }) => (
     <div style={{ position: "absolute", left: 0, top: 0, width: CARD_W, height: PHOTO_H, borderRadius: "30px 30px 0 0", overflow: "hidden", background: "#e9edf3" }}>
       <PhotoInner c={c} />
     </div>
-    <div style={{ position: "absolute", left: 0, right: 0, top: SHEET_TOP, bottom: 0, background: "#fff", borderRadius: "30px 30px 0 0", padding: "18px 18px 0" }}>
+    <div style={{ position: "absolute", left: 0, right: 0, top: SHEET_TOP, bottom: 0, background: "#fff", borderRadius: "30px 30px 0 0", padding: "13px 16px 0" }}>
       <CandidateSheet c={c} />
       <Hairline />
       <div style={{ fontSize: 12.5, color: "var(--surface-50)" }}>📖 What I&rsquo;m currently working on</div>
-      <div style={{ fontSize: 14.5, fontWeight: 600, color: "var(--surface-90)", marginTop: 5, lineHeight: 1.4, display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: 2, overflow: "hidden" }}>
+      <div style={{ fontSize: 14.5, fontWeight: 600, color: "var(--surface-90)", marginTop: 4, lineHeight: 1.38, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
         {c.working.a}
       </div>
     </div>
