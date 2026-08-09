@@ -1,0 +1,28 @@
+{
+  "name": "hinge-for-hiring",
+  "version": "1.0.0",
+  "description": "Tal — 'Hinge for Hiring' reel (boss-POV, Remotion, 720x900 @30fps)",
+  "private": true,
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render HingeForHiring out/hinge-for-hiring.mp4 --scale=2",
+    "still": "remotion still HingeForHiring out/still.png --scale=2",
+    "gif": "remotion render HingeForHiring out/hinge-for-hiring.gif --codec=gif --every-nth-frame=2",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.469",
+    "@remotion/fonts": "^4.0.499",
+    "@remotion/google-fonts": "^4.0.469",
+    "@remotion/layout-utils": "^4.0.499",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "remotion": "^4.0.469"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@types/web": "^0.0.349",
+    "typescript": "^6.0.3"
+  }
+}

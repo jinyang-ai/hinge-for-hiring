@@ -1,0 +1,120 @@
+/* ============================================================
+   Tal Reel 2 — 4:5 cut styles. Self-contained; classes are r245-*
+   prefixed so they never collide with the 9:16 reel's r2-* rules
+   (both compositions share one bundle). Static visual layer only;
+   animated transforms live in the TSX.
+   ============================================================ */
+:root {
+  --grey-90: #0b0b0d;
+  --surface-90: #1c1c1e;
+  --surface-80: #2c2c2e;
+  --surface-70: #48484a;
+  --surface-60: #6c6c70;
+  --surface-50: #8e8e93;
+  --surface-40: #aeaeb2;
+  --surface-25: #efeff4;
+  --surface-20: #f5f5f8;
+  --stage2-white: #ffffff;
+}
+
+/* ---------- stage ---------- */
+.r245-stage {
+  background: var(--stage2-white);
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* ---------- Scene 2 — headline ---------- */
+.r245-head {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  z-index: 6;
+}
+.r245-line {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+}
+.r245-word {
+  font-family: var(--font-anton, "Anton"), sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--grey-90);
+  letter-spacing: -0.005em;
+  display: inline-block;
+  transform-origin: center bottom;
+  white-space: nowrap;
+}
+
+/* ---------- Scene 2 — dividers ---------- */
+.r245-divider {
+  height: 1px;
+  background: var(--surface-25);
+}
+
+/* ---------- Scene 2 — floating action bar (native card px) ---------- */
+.r245-actions {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 400;
+}
+.r245-x {
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid rgba(20, 16, 10, 0.14);
+  box-shadow: 0 6px 18px rgba(40, 30, 20, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: var(--surface-80);
+}
+.r245-x svg {
+  width: 22px;
+  height: 22px;
+}
+.r245-pill {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid rgba(20, 16, 10, 0.14);
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(40, 30, 20, 0.12);
+  padding: 9px 6px;
+}
+.r245-pill .seg {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  color: var(--surface-80);
+}
+.r245-pill .seg + .seg {
+  border-left: 1.5px solid rgba(20, 16, 10, 0.12);
+}
+.r245-pill .seg svg {
+  width: 23px;
+  height: 23px;
+}
+.r245-pill .seg span {
+  font-size: 13px;
+  font-weight: 600;
+}
