@@ -68,8 +68,9 @@ export const revealAtMs = (i: number) => (i === 0 ? S1.firstNoun : flickAtMs(i -
 // ============================================================
 // Scene 2 — "Chat with your next boss, directly"
 // ============================================================
-// headline (compact — 4:5 has far less headroom than 9:16)
-export const HEAD_TOP = 30;
+// headline — "Hinge for hiring" serif lockup (see Stack.tsx). HEAD_SIZE/HEAD_LH
+// are legacy (unused by the current lockup) but kept for reference.
+export const HEAD_TOP = 24;
 export const HEAD_SIZE = 40;
 export const HEAD_LH = 0.92;
 

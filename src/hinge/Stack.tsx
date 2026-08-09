@@ -19,8 +19,6 @@ import {
   CARD_LEFT,
   CARD_TOP,
   HEAD_TOP,
-  HEAD_SIZE,
-  HEAD_LH,
   CARD_RISE_START,
   CARD_RISE_FROM,
   PROMOTE,
@@ -34,7 +32,7 @@ import {
   CHAT_OPEN_MS_F,
   PRESS_FRAMES,
 } from "./timing";
-import { stack, dismissed, headlineLines } from "./data";
+import { stack, dismissed } from "./data";
 import { CandidateCard } from "./CandidateCard";
 import { HeroProfile } from "./HeroProfile";
 import { ChatScreen } from "./ChatScreen";
@@ -75,25 +73,45 @@ function stackVisual(i: number, lf: number) {
   };
 }
 
-// ---- headline (rises up + fades in, then holds; fades as the card expands) ----
-const HEAD_IN_MS = 380;
+// ---- headline — "Hinge for hiring" brand lockup: an elegant serif wordmark
+// over a tracked descriptor. Staggered fade/rise in; fades as the card expands. ----
+const EASE_OUT = { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) } as const;
 const Headline: React.FC<{ lf: number; fade: number }> = ({ lf, fade }) => {
-  const p = interpolate(lf, [0, f(HEAD_IN_MS)], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.out(Easing.cubic),
-  });
+  const p1 = interpolate(lf, [0, f(380)], [0, 1], EASE_OUT); // "Hinge"
+  const p2 = interpolate(lf, [f(150), f(520)], [0, 1], EASE_OUT); // "for hiring"
   return (
-    <div className="r245-head" style={{ top: HEAD_TOP, opacity: p * fade, transform: `translateY(${(1 - p) * 40}px)` }}>
-      {headlineLines.map((words, li) => (
-        <div key={li} className="r245-line" style={{ gap: HEAD_SIZE * 0.16, lineHeight: HEAD_LH }}>
-          {words.map((w, j) => (
-            <span key={w + j} className="r245-word" style={{ fontSize: HEAD_SIZE, lineHeight: HEAD_LH }}>
-              {w}
-            </span>
-          ))}
-        </div>
-      ))}
+    <div className="r245-head" style={{ top: HEAD_TOP, opacity: fade }}>
+      <div
+        style={{
+          fontFamily: "var(--font-playfair), Georgia, serif",
+          fontStyle: "italic",
+          fontWeight: 600,
+          fontSize: 56,
+          lineHeight: 1,
+          color: "#141414",
+          letterSpacing: "-0.015em",
+          opacity: p1,
+          transform: `translateY(${(1 - p1) * 20}px)`,
+        }}
+      >
+        Hinge
+      </div>
+      <div
+        style={{
+          fontWeight: 600,
+          fontSize: 14.5,
+          lineHeight: 1,
+          letterSpacing: "0.44em",
+          textTransform: "uppercase",
+          color: "#a2a2a8",
+          marginTop: 9,
+          paddingLeft: "0.44em", // optically re-centre the tracked caps
+          opacity: p2,
+          transform: `translateY(${(1 - p2) * 10}px)`,
+        }}
+      >
+        for hiring
+      </div>
     </div>
   );
 };

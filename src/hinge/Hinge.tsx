@@ -7,6 +7,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
+import { loadFont as loadPlayfair } from "@remotion/google-fonts/PlayfairDisplay";
 import "./hinge.css";
 import { SCENES } from "./timing";
 import { OBVIOUSLY } from "./fonts";
@@ -14,6 +15,8 @@ import { Title } from "./Title";
 import { Stack } from "./Stack";
 
 const inter = loadInter("normal", { weights: ["400", "500", "600", "700"], ignoreTooManyRequestsWarning: true });
+// Playfair Display — elegant serif for the "Hinge" wordmark in the headline.
+const playfair = loadPlayfair("italic", { weights: ["500", "600"], ignoreTooManyRequestsWarning: true });
 
 export const Hinge: React.FC = () => {
   const frame = useCurrentFrame();
@@ -23,6 +26,7 @@ export const Hinge: React.FC = () => {
       style={{
         fontFamily: inter.fontFamily,
         ["--font-anton" as string]: OBVIOUSLY,
+        ["--font-playfair" as string]: playfair.fontFamily,
       }}
     >
       {/* Scene 2 sits under the title; the title flies up and off to reveal it */}
