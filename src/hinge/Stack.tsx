@@ -30,10 +30,11 @@ import {
   CHAT_OPEN_START,
   CHAT_OPEN_MS_F,
   PRESS_FRAMES,
+  BROWSE_MS_F,
+  BROWSE_PX,
 } from "./timing";
 import { stack, dismissed } from "./data";
-import { CandidateCard } from "./CandidateCard";
-import { HeroProfile } from "./HeroProfile";
+import { Profile } from "./Profile";
 import { ChatScreen } from "./ChatScreen";
 import * as Ic from "./icons2";
 
@@ -51,6 +52,17 @@ const press = (frame: number, pf: number) => {
 
 const HERO_IDX = stack.length - 1;
 const rejBeats = rejectBeats(dismissed.length);
+
+// each dismissed candidate auto-scrolls (browses) its rich profile in the beat
+// before it gets flicked off — so the reel reads as "a lot is happening".
+function browseScroll(i: number, lf: number): number {
+  const end = rejBeats[i] - f(140);
+  return interpolate(lf, [end - BROWSE_MS_F, end], [0, BROWSE_PX], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.inOut(Easing.cubic),
+  });
+}
 
 // stackVisual() — ported; reject translate is native card px (cleared after scale).
 function stackVisual(i: number, lf: number) {
@@ -145,7 +157,12 @@ export const Stack: React.FC<{ frame: number }> = ({ frame }) => {
                 key={b.id}
                 style={{ position: "absolute", inset: 0, transform: v.transform, opacity: v.opacity, zIndex: v.z, filter: expand > 0.02 ? "none" : "drop-shadow(0 16px 34px rgba(20,28,48,0.16))" }}
               >
-                {isHero ? <HeroProfile scroll={scroll} replyPress={replyPress} radius={cardRadiusNative} /> : <CandidateCard c={b} />}
+                <Profile
+                  c={b}
+                  scroll={isHero ? scroll : browseScroll(i, lf)}
+                  replyPress={isHero ? replyPress : 1}
+                  radius={cardRadiusNative}
+                />
               </div>
             );
           })}
