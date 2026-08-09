@@ -13,8 +13,8 @@ export const f = (ms: number) => Math.round((ms * FPS) / 1000);
 
 // ---- scene durations (ms) ----
 export const SCENE_MS = {
-  title: 2400, // poster: NO holds, 3 nouns flick, last holds, poster rises off
-  chat: 7900, // stack → settle → expand+scroll to prompt → Reply → chat → interview
+  title: 1400, // intro: "Hinge for hiring" rises from below → hero hold → settles to top
+  chat: 7900, // stack → settle → expand+scroll to prompt → Reply → chat → resume
 } as const;
 
 export type SceneName = keyof typeof SCENE_MS;

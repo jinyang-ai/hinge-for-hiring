@@ -1,8 +1,7 @@
 // ============================================================
-// Tal Reel 2 — 4:5 cut. Root wrapper. Composes Scene 1 (Title) +
-// Scene 2 (Stack) off a single global frame; the title straddles
-// the boundary on exit. Fonts loaded here; Anton (Obviously Narrow)
-// exposed as --font-anton on the stage.
+// Hinge for Hiring — root wrapper. The "Hinge for hiring" lockup opens the
+// reel (rises from below → settles at top), then the candidate stack rises in
+// under it. One global frame drives both. Playfair exposed as --font-playfair.
 // ============================================================
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
@@ -10,8 +9,7 @@ import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
 import { loadFont as loadPlayfair } from "@remotion/google-fonts/PlayfairDisplay";
 import "./hinge.css";
 import { SCENES } from "./timing";
-import { OBVIOUSLY } from "./fonts";
-import { Title } from "./Title";
+import { HingeLockup } from "./HingeLockup";
 import { Stack } from "./Stack";
 
 const inter = loadInter("normal", { weights: ["400", "500", "600", "700"], ignoreTooManyRequestsWarning: true });
@@ -25,13 +23,13 @@ export const Hinge: React.FC = () => {
       className="r245-stage"
       style={{
         fontFamily: inter.fontFamily,
-        ["--font-anton" as string]: OBVIOUSLY,
         ["--font-playfair" as string]: playfair.fontFamily,
       }}
     >
-      {/* Scene 2 sits under the title; the title flies up and off to reveal it */}
+      {/* the candidate stack rises in under the lockup once it starts settling */}
       {frame >= SCENES.chat.start - 8 && <Stack frame={frame} />}
-      <Title frame={frame} />
+      {/* the "Hinge for hiring" lockup: opener + persistent headline */}
+      <HingeLockup frame={frame} />
     </AbsoluteFill>
   );
 };

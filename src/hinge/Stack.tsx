@@ -18,7 +18,6 @@ import {
   CARD_SCALE_FULL,
   CARD_LEFT,
   CARD_TOP,
-  HEAD_TOP,
   CARD_RISE_START,
   CARD_RISE_FROM,
   PROMOTE,
@@ -73,49 +72,6 @@ function stackVisual(i: number, lf: number) {
   };
 }
 
-// ---- headline — "Hinge for hiring" brand lockup: an elegant serif wordmark
-// over a tracked descriptor. Staggered fade/rise in; fades as the card expands. ----
-const EASE_OUT = { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) } as const;
-const Headline: React.FC<{ lf: number; fade: number }> = ({ lf, fade }) => {
-  const p1 = interpolate(lf, [0, f(380)], [0, 1], EASE_OUT); // "Hinge"
-  const p2 = interpolate(lf, [f(150), f(520)], [0, 1], EASE_OUT); // "for hiring"
-  return (
-    <div className="r245-head" style={{ top: HEAD_TOP, opacity: fade }}>
-      <div
-        style={{
-          fontFamily: "var(--font-playfair), Georgia, serif",
-          fontStyle: "italic",
-          fontWeight: 600,
-          fontSize: 56,
-          lineHeight: 1,
-          color: "#141414",
-          letterSpacing: "-0.015em",
-          opacity: p1,
-          transform: `translateY(${(1 - p1) * 20}px)`,
-        }}
-      >
-        Hinge
-      </div>
-      <div
-        style={{
-          fontWeight: 600,
-          fontSize: 14.5,
-          lineHeight: 1,
-          letterSpacing: "0.44em",
-          textTransform: "uppercase",
-          color: "#a2a2a8",
-          marginTop: 9,
-          paddingLeft: "0.44em", // optically re-centre the tracked caps
-          opacity: p2,
-          transform: `translateY(${(1 - p2) * 10}px)`,
-        }}
-      >
-        for hiring
-      </div>
-    </div>
-  );
-};
-
 export const Stack: React.FC<{ frame: number }> = ({ frame }) => {
   const lf = frame - SCENES.chat.start; // local frame (negative during the overlap)
 
@@ -165,7 +121,7 @@ export const Stack: React.FC<{ frame: number }> = ({ frame }) => {
 
   return (
     <AbsoluteFill>
-      <Headline lf={lf} fade={1 - expand} />
+      {/* the "Hinge for hiring" lockup (headline) is rendered at the top level */}
 
       {/* card group — floats during the swipe, then grows to full-width */}
       <div
