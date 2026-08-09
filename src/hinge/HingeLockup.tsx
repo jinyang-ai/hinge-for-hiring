@@ -25,7 +25,7 @@ export const HingeLockup: React.FC<{ frame: number }> = ({ frame }) => {
   // finishing exactly as scene 2 (the card stack) begins.
   const settle = interpolate(frame, [f(1000), SCENES.chat.start], [0, 1], { ...clampE, easing: Easing.inOut(Easing.cubic) });
   const offsetY = CENTER_DROP * (1 - settle) + enterExtra;
-  const scale = 1.5 - 0.5 * settle; // 1.5 hero → 1.0 headline
+  const scale = 1.4 - 0.4 * settle; // 1.4 hero → 1.0 headline (phrase is longer now)
 
   // fade out as the card expands to full-frame (so it never shows through)
   const expandStart = SCENES.chat.start + EXPAND_START;
@@ -45,29 +45,29 @@ export const HingeLockup: React.FC<{ frame: number }> = ({ frame }) => {
         style={{
           fontFamily: "var(--font-playfair), Georgia, serif",
           fontStyle: "italic",
-          fontWeight: 600,
-          fontSize: 56,
+          fontSize: 40,
           lineHeight: 1,
           color: "#141414",
-          letterSpacing: "-0.015em",
+          letterSpacing: "-0.01em",
+          whiteSpace: "nowrap",
         }}
       >
-        Hinge
+        <span style={{ fontWeight: 700 }}>Hinge,</span>
+        <span style={{ fontWeight: 500 }}> but for hiring.</span>
       </div>
       <div
         style={{
-          fontWeight: 600,
-          fontSize: 14.5,
+          fontWeight: 500,
+          fontSize: 15,
           lineHeight: 1,
-          letterSpacing: "0.44em",
-          textTransform: "uppercase",
-          color: "#a2a2a8",
-          marginTop: 9,
-          paddingLeft: "0.44em",
+          letterSpacing: "0.02em",
+          color: "#9a9aa0",
+          marginTop: 12,
+          whiteSpace: "nowrap",
           opacity: p2,
         }}
       >
-        for hiring
+        (Only for bosses in tech &amp; startups in BLR)
       </div>
     </div>
   );
