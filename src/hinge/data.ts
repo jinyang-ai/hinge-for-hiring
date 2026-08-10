@@ -74,7 +74,7 @@ export const dismissed: Candidate[] = [
     expHeader: "4+ years of work experience",
     xps: [
       { logo: staticFile("reel/logo-groww.png"), title: "AI Engineer", company: "Groww", dates: "Jan 2024 · 2 y 6 mo · Now", loc: "Bengaluru, India" },
-      { title: "ML Engineer", company: "ShareChat", dates: "Jun 2022 · 1 y 6 mo", loc: "Bengaluru, India" },
+      { logo: staticFile("reel/logo-sharechat.png"), title: "ML Engineer", company: "ShareChat", dates: "Jun 2022 · 1 y 6 mo", loc: "Bengaluru, India" },
     ],
     moreXp: 1,
     skills: ["Python", "PyTorch", "Recsys", "Spark", "Airflow"],
@@ -96,7 +96,7 @@ export const dismissed: Candidate[] = [
     expHeader: "3+ years of work experience",
     xps: [
       { logo: staticFile("reel/logo-meesho.png"), title: "Software Engineer (Backend)", company: "Meesho", dates: "Nov 2024 · 1 y 8 mo · Now", loc: "Bengaluru, India" },
-      { title: "SDE Intern", company: "Razorpay", dates: "Jun 2023 · 6 mo", loc: "Bengaluru, India" },
+      { logo: staticFile("reel/logo-razorpay.png"), title: "SDE Intern", company: "Razorpay", dates: "Jun 2023 · 6 mo", loc: "Bengaluru, India" },
     ],
     moreXp: 1,
     skills: ["Go", "Kafka", "PostgreSQL", "Kubernetes", "gRPC"],
