@@ -118,7 +118,7 @@ export const dismissed: Candidate[] = [
     expHeader: "3+ years of work experience",
     xps: [
       { logo: staticFile("reel/logo-kite.png"), title: "AI Engineer", company: "Kite by Zerodha", dates: "Jun 2024 · 2 y 1 mo · Now", loc: "Bengaluru, India" },
-      { title: "Software Engineer", company: "Swiggy", dates: "Mar 2023 · 1 y", loc: "Bengaluru, India" },
+      { logo: staticFile("reel/logo-swiggy.png"), title: "Software Engineer", company: "Swiggy", dates: "Mar 2023 · 1 y", loc: "Bengaluru, India" },
     ],
     moreXp: 2,
     skills: ["Python", "Ray", "Kafka", "ClickHouse", "Feast"],
