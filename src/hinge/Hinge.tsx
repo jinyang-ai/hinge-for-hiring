@@ -6,15 +6,13 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
-import { loadFont as loadPlayfair } from "@remotion/google-fonts/PlayfairDisplay";
 import "./hinge.css";
 import { SCENES } from "./timing";
+import { OBVIOUSLY } from "./fonts";
 import { HingeLockup } from "./HingeLockup";
 import { Stack } from "./Stack";
 
 const inter = loadInter("normal", { weights: ["400", "500", "600", "700"], ignoreTooManyRequestsWarning: true });
-// Playfair Display — elegant serif for the "Hinge" wordmark in the headline.
-const playfair = loadPlayfair("italic", { weights: ["500", "600"], ignoreTooManyRequestsWarning: true });
 
 export const Hinge: React.FC = () => {
   const frame = useCurrentFrame();
@@ -23,7 +21,7 @@ export const Hinge: React.FC = () => {
       className="r245-stage"
       style={{
         fontFamily: inter.fontFamily,
-        ["--font-playfair" as string]: playfair.fontFamily,
+        ["--font-anton" as string]: OBVIOUSLY,
       }}
     >
       {/* the candidate stack rises in under the lockup once it starts settling */}

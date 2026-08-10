@@ -43,17 +43,17 @@ export const HingeLockup: React.FC<{ frame: number }> = ({ frame }) => {
     >
       <div
         style={{
-          fontFamily: "var(--font-playfair), Georgia, serif",
-          fontStyle: "italic",
-          fontSize: 40,
+          fontFamily: "var(--font-anton), sans-serif",
+          fontWeight: 700,
+          fontSize: 46,
           lineHeight: 1,
           color: "#141414",
-          letterSpacing: "-0.01em",
+          letterSpacing: "-0.005em",
+          textTransform: "uppercase",
           whiteSpace: "nowrap",
         }}
       >
-        <span style={{ fontWeight: 700 }}>Hinge,</span>
-        <span style={{ fontWeight: 500 }}> but for hiring.</span>
+        Hinge, but for hiring.
       </div>
       <div
         style={{
