@@ -128,8 +128,27 @@ export const dismissed: Candidate[] = [
   },
 ];
 
-// Scene-2 stack order: dismissed first, hero settles last.
-export const stack: Candidate[] = [...dismissed, hero];
+// Randomized dismissed order, with a MALE candidate guaranteed first. Uses a
+// seeded shuffle (not Math.random) so every Remotion render worker agrees on the
+// same order — otherwise frames would disagree. Bump SHUFFLE_SEED to re-roll.
+export const SHUFFLE_SEED = 3;
+const MALE_IDS = new Set(["d3", "sanchit"]); // Rohan + Sanchit are the men
+function seededShuffle<T>(arr: T[], seed: number): T[] {
+  const a = [...arr];
+  let s = (seed % 2147483647) || 1;
+  const rnd = () => (s = (s * 48271) % 2147483647) / 2147483647;
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+const shuffled = seededShuffle(dismissed, SHUFFLE_SEED);
+const firstMale = shuffled.findIndex((c) => MALE_IDS.has(c.id));
+if (firstMale > 0) [shuffled[0], shuffled[firstMale]] = [shuffled[firstMale], shuffled[0]];
+
+// Scene-2 stack order: shuffled dismissed (male first) → the hero settles last.
+export const stack: Candidate[] = [...shuffled, hero];
 
 // Scene 4 chat — the boss requested the resume on the profile; the chat opens
 // with that request in place, then Sanchit replies with his resume.
