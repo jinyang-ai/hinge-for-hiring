@@ -7,8 +7,8 @@
 // around it. If a beat is not the app doing its job, it is not in here.
 // ============================================================
 import React from "react";
-import { AbsoluteFill, Img, spring, staticFile, useCurrentFrame } from "remotion";
-import { Stage, disp, timeline, fr, FPS, lerp, PURPLE, MUTED, LOGO_SRC } from "../shared/kit";
+import { AbsoluteFill, spring, useCurrentFrame } from "remotion";
+import { Stage, CompactSlate, disp, timeline, fr, FPS, lerp, PURPLE } from "../shared/kit";
 import { ActionBar, TalChat, type Msg } from "../shared/AppUI";
 import { CandidateCard } from "../hinge/CandidateCard";
 import { Profile } from "../hinge/Profile";
@@ -30,23 +30,11 @@ const Line: React.FC<{ local: number; a: string; b: string }> = ({ local, a, b }
   );
 };
 
-const MiniSlate: React.FC<{ local: number }> = ({ local }) => {
-  const pop = spring({ frame: Math.max(0, local), fps: FPS, config: { damping: 13, stiffness: 150, mass: 0.85 } });
-  return (
-    <AbsoluteFill style={{ background: "#fff", alignItems: "center", justifyContent: "center" }}>
-      <Img src={staticFile(LOGO_SRC)} style={{ height: 186, width: "auto", display: "block", transform: `scale(${0.88 + 0.12 * Math.min(pop, 1.04)})` }} />
-      <div style={{ fontSize: 21, fontWeight: 500, color: "#8a8a8a", marginTop: 26, opacity: lerp(local, [fr(320), fr(620)], [0, 1]) }}>
-        where Bangalore founders hire directly
-      </div>
-    </AbsoluteFill>
-  );
-};
-
 // ============================================================
 // 1 — REQUEST A RESUME
 // profile → Request resume → it arrives in the chat.
 // ============================================================
-const RESUME_MS = { profile: 2600, chat: 3800, line: 1700, slate: 1500 };
+const RESUME_MS = { profile: 2600, chat: 3800, line: 1700, slate: 1900 };
 const RESUME_ORDER: (keyof typeof RESUME_MS)[] = ["profile", "chat", "line", "slate"];
 export const { scenes: RS, total: RESUME_TOTAL } = timeline(RESUME_MS, RESUME_ORDER);
 
@@ -71,7 +59,7 @@ export const ResumeLoop: React.FC = () => {
       )}
       {frame >= RS.chat.start && frame < RS.line.start && <TalChat lf={frame - RS.chat.start} msgs={RESUME_CHAT} />}
       {frame >= RS.line.start && frame < RS.slate.start && <Line local={frame - RS.line.start} a="Resume in" b="ten minutes." />}
-      {frame >= RS.slate.start && <MiniSlate local={frame - RS.slate.start} />}
+      {frame >= RS.slate.start && <CompactSlate local={frame - RS.slate.start} />}
     </Stage>
   );
 };
@@ -80,7 +68,7 @@ export const ResumeLoop: React.FC = () => {
 // 2 — BOOK THE INTERVIEW
 // Setup Meet → pick a slot → swipe → Google Meet sent.
 // ============================================================
-const MEET_MS = { sheet: 5200, line: 1700, slate: 1500 };
+const MEET_MS = { sheet: 5200, line: 1700, slate: 1900 };
 const MEET_ORDER: (keyof typeof MEET_MS)[] = ["sheet", "line", "slate"];
 export const { scenes: MS_, total: MEET_TOTAL } = timeline(MEET_MS, MEET_ORDER);
 
@@ -90,7 +78,7 @@ export const MeetLoop: React.FC = () => {
     <Stage>
       {frame < MS_.line.start && <MeetSheet local={frame} f={fr} />}
       {frame >= MS_.line.start && frame < MS_.slate.start && <Line local={frame - MS_.line.start} a="Interview booked." b="One swipe." />}
-      {frame >= MS_.slate.start && <MiniSlate local={frame - MS_.slate.start} />}
+      {frame >= MS_.slate.start && <CompactSlate local={frame - MS_.slate.start} />}
     </Stage>
   );
 };
@@ -99,7 +87,7 @@ export const MeetLoop: React.FC = () => {
 // 3 — ASK ABOUT THE WORK
 // the candidate's own prompt → Reply → a real answer.
 // ============================================================
-const ASK_MS = { profile: 2600, chat: 4000, line: 1700, slate: 1500 };
+const ASK_MS = { profile: 2500, chat: 3700, line: 1600, slate: 1900 };
 const ASK_ORDER: (keyof typeof ASK_MS)[] = ["profile", "chat", "line", "slate"];
 export const { scenes: AS, total: ASK_TOTAL } = timeline(ASK_MS, ASK_ORDER);
 
@@ -124,7 +112,7 @@ export const AskLoop: React.FC = () => {
       )}
       {frame >= AS.chat.start && frame < AS.line.start && <TalChat lf={frame - AS.chat.start} msgs={ASK_CHAT} />}
       {frame >= AS.line.start && frame < AS.slate.start && <Line local={frame - AS.line.start} a="Ask about the work." b="They answer." />}
-      {frame >= AS.slate.start && <MiniSlate local={frame - AS.slate.start} />}
+      {frame >= AS.slate.start && <CompactSlate local={frame - AS.slate.start} />}
     </Stage>
   );
 };
@@ -133,7 +121,7 @@ export const AskLoop: React.FC = () => {
 // 4 — THE DECK
 // swipe past, land on the one who is already matched to you.
 // ============================================================
-const DECK_MS = { deck: 5000, line: 1700, slate: 1500 };
+const DECK_MS = { deck: 5000, line: 1700, slate: 1900 };
 const DECK_ORDER: (keyof typeof DECK_MS)[] = ["deck", "line", "slate"];
 export const { scenes: DS, total: DECK_TOTAL } = timeline(DECK_MS, DECK_ORDER);
 
@@ -176,7 +164,7 @@ export const DeckLoop: React.FC = () => {
         </AbsoluteFill>
       )}
       {frame >= DS.line.start && frame < DS.slate.start && <Line local={frame - DS.line.start} a="Your shortlist," b="already made." />}
-      {frame >= DS.slate.start && <MiniSlate local={frame - DS.slate.start} />}
+      {frame >= DS.slate.start && <CompactSlate local={frame - DS.slate.start} />}
     </Stage>
   );
 };

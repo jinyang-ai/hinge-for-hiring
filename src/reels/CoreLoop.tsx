@@ -6,15 +6,15 @@
 // reel ends on a yes, not on a sent invite.
 // ============================================================
 import React from "react";
-import { AbsoluteFill, Img, spring, staticFile, useCurrentFrame } from "remotion";
-import { Stage, disp, timeline, fr, FPS, lerp, PURPLE, LOGO_SRC } from "../shared/kit";
+import { AbsoluteFill, spring, useCurrentFrame } from "remotion";
+import { Stage, CompactSlate, disp, timeline, fr, FPS, lerp, PURPLE } from "../shared/kit";
 import { ActionBar, TalChat, type Msg } from "../shared/AppUI";
 import { CandidateCard } from "../hinge/CandidateCard";
 import { Profile } from "../hinge/Profile";
 import { MeetSheet } from "../notlooking/MeetSheet";
 import { hero, dismissed, type Candidate } from "../hinge/data";
 
-const MS = { deck: 2600, read: 3800, chat: 6600, meet: 3300, accepted: 2900, line: 1900, slate: 1500 };
+const MS = { deck: 2600, read: 3800, chat: 6600, meet: 3300, accepted: 2900, line: 1900, slate: 2100 };
 const ORDER: (keyof typeof MS)[] = ["deck", "read", "chat", "meet", "accepted", "line", "slate"];
 export const { scenes: S, total: TOTAL } = timeline(MS, ORDER);
 
@@ -63,10 +63,6 @@ export const CoreLoop: React.FC = () => {
   const ll = frame - S.line.start;
   const l1 = spring({ frame: Math.max(0, ll), fps: FPS, config: { damping: 14, stiffness: 160, mass: 0.85 } });
   const l2 = spring({ frame: Math.max(0, ll - fr(230)), fps: FPS, config: { damping: 14, stiffness: 160, mass: 0.85 } });
-
-  // ---- slate ----
-  const sl = frame - S.slate.start;
-  const pop = spring({ frame: Math.max(0, sl), fps: FPS, config: { damping: 13, stiffness: 150, mass: 0.85 } });
 
   return (
     <Stage>
@@ -127,15 +123,9 @@ export const CoreLoop: React.FC = () => {
         </AbsoluteFill>
       )}
 
-      {/* ---------- lockup ---------- */}
-      {frame >= S.slate.start && (
-        <AbsoluteFill style={{ background: "#fff", alignItems: "center", justifyContent: "center" }}>
-          <Img src={staticFile(LOGO_SRC)} style={{ height: 186, width: "auto", display: "block", transform: `scale(${0.88 + 0.12 * Math.min(pop, 1.04)})` }} />
-          <div style={{ fontSize: 21, fontWeight: 500, color: "#8a8a8a", marginTop: 26, opacity: lerp(sl, [fr(300), fr(600)], [0, 1]) }}>
-            where Bangalore founders hire directly
-          </div>
-        </AbsoluteFill>
-      )}
+      {/* ---------- lockup + store badges ---------- */}
+      {frame >= S.slate.start && <CompactSlate local={frame - S.slate.start} />}
+
     </Stage>
   );
 };

@@ -109,6 +109,31 @@ export const Slate: React.FC<{ local: number; total: number; frame: number; line
   );
 };
 
+// ---- compact closing slate ----
+// Same furniture as Slate (lockup → tagline → store badges) but on a tight
+// clock, for the short loop reels. The badges are the call to action — never
+// ship a cut without them.
+export const CompactSlate: React.FC<{ local: number }> = ({ local }) => {
+  const pop = spring({ frame: Math.max(0, local), fps: FPS, config: { damping: 13, stiffness: 150, mass: 0.85 } });
+  const tag = lerp(local, [fr(220), fr(520)], [0, 1]);
+  const badge = lerp(local, [fr(400), fr(760)], [0, 1]);
+  return (
+    <AbsoluteFill style={{ background: "#fff", alignItems: "center", justifyContent: "center" }}>
+      <Img
+        src={staticFile(LOGO_SRC)}
+        style={{ height: 172, width: "auto", display: "block", transform: `scale(${0.88 + 0.12 * Math.min(pop, 1.04)})` }}
+      />
+      <div style={{ fontSize: 21, fontWeight: 500, color: "#8a8a8a", marginTop: 24, opacity: tag }}>
+        where Bangalore founders hire directly
+      </div>
+      <Img
+        src={staticFile("reel/badges-stores.png")}
+        style={{ width: 520, height: "auto", display: "block", marginTop: 34, opacity: badge, transform: `translateY(${(1 - badge) * 14}px)` }}
+      />
+    </AbsoluteFill>
+  );
+};
+
 // ---- a generic scene-timeline builder ----
 export type Span = { start: number; end: number; dur: number };
 export function timeline<T extends string>(ms: Record<T, number>, order: T[]) {
