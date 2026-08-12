@@ -10,11 +10,12 @@ import { AbsoluteFill, Img, spring, staticFile, useCurrentFrame } from "remotion
 import { Stage, disp, timeline, fr, FPS, lerp, PURPLE, LOGO_SRC } from "../shared/kit";
 import { ActionBar, TalChat, type Msg } from "../shared/AppUI";
 import { CandidateCard } from "../hinge/CandidateCard";
+import { Profile } from "../hinge/Profile";
 import { MeetSheet } from "../notlooking/MeetSheet";
 import { hero, dismissed, type Candidate } from "../hinge/data";
 
-const MS = { deck: 3200, chat: 6600, meet: 3300, accepted: 2900, line: 1900, slate: 1500 };
-const ORDER: (keyof typeof MS)[] = ["deck", "chat", "meet", "accepted", "line", "slate"];
+const MS = { deck: 2600, read: 3800, chat: 6600, meet: 3300, accepted: 2900, line: 1900, slate: 1500 };
+const ORDER: (keyof typeof MS)[] = ["deck", "read", "chat", "meet", "accepted", "line", "slate"];
 export const { scenes: S, total: TOTAL } = timeline(MS, ORDER);
 
 const HERO: Candidate = { ...hero, intent: "Open to meet · this week" };
@@ -47,6 +48,13 @@ export const CoreLoop: React.FC = () => {
   const flick = (i: number) => lerp(frame, [fr(900) + i * fr(800), fr(1480) + i * fr(800)], [0, 1]);
   const press = (i: number) => (frame > fr(830) + i * fr(800) && frame < fr(1010) + i * fr(800) ? 0.9 : 1);
 
+  // ---- read: the card opens out, then the profile is scrolled ----
+  const rl = frame - S.read.start;
+  const expand = lerp(rl, [0, fr(520)], [0, 1]);
+  const readScale = 1.24 + (1.83 - 1.24) * expand;
+  const readScroll = lerp(rl, [fr(560), fr(3100)], [0, 830]);
+  const readPress = rl > fr(3250) && rl < fr(3520) ? 0.92 : 1;
+
   // ---- accepted ----
   const al = frame - S.accepted.start;
   const showDone = al >= fr(1980);
@@ -63,7 +71,7 @@ export const CoreLoop: React.FC = () => {
   return (
     <Stage>
       {/* ---------- see profiles, reject, land on one ---------- */}
-      {frame < S.chat.start && (
+      {frame < S.read.start && (
         <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
           {STACK.map((c, i) => {
             const isHero = i === STACK.length - 1;
@@ -82,11 +90,21 @@ export const CoreLoop: React.FC = () => {
               >
                 <div style={{ position: "relative" }}>
                   <CandidateCard c={c} />
-                  <ActionBar xPress={isHero ? 1 : press(i)} resumePress={isHero && frame > fr(2750) && frame < fr(2980) ? 0.92 : 1} />
+                  <ActionBar xPress={isHero ? 1 : press(i)} />
                 </div>
               </div>
             );
           })}
+        </AbsoluteFill>
+      )}
+
+      {/* ---------- actually read the profile ---------- */}
+      {frame >= S.read.start && frame < S.chat.start && (
+        <AbsoluteFill style={{ alignItems: "center", justifyContent: "flex-start" }}>
+          <div style={{ position: "relative", transform: `scale(${readScale})`, transformOrigin: "top center" }}>
+            <Profile c={HERO} scroll={readScroll} radius={30 * (1 - expand)} />
+            <ActionBar resumePress={readPress} />
+          </div>
         </AbsoluteFill>
       )}
 
