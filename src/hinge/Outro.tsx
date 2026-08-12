@@ -30,7 +30,7 @@ export const Outro: React.FC<{ frame: number }> = ({ frame }) => {
         style={{ width: 300, height: "auto", display: "block", opacity: contentOut, transform: `scale(${0.9 + 0.1 * Math.min(pop, 1.05)})`, marginBottom: 26 }}
       />
       <div style={{ fontSize: 22, fontWeight: 500, color: "#8a8a8a", letterSpacing: "0.01em", opacity: tShow * contentOut, marginBottom: 48 }}>
-        the app where bosses hire directly
+        where Bangalore founders hire directly
       </div>
       <Img
         src={staticFile("reel/badges-stores.png")}

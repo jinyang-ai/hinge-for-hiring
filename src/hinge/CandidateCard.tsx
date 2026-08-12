@@ -59,6 +59,14 @@ export const CandidateSheet: React.FC<{ c: Candidate }> = ({ c }) => (
       {c.verified && <span style={{ color: SEAL_GREY, display: "flex" }}><Ic.Verified size={16} /></span>}
     </div>
     <div style={{ textAlign: "center", fontSize: 14, fontWeight: 500, color: "var(--surface-60)", marginTop: 3 }}>{c.role}</div>
+    {c.intent && (
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 8 }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 600, color: "#0f9d58", background: "rgba(19,191,105,0.10)", border: "1px solid rgba(19,191,105,0.28)", borderRadius: 999, padding: "4px 11px" }}>
+          <span style={{ width: 7, height: 7, borderRadius: 999, background: "#13bf69", display: "inline-block" }} />
+          {c.intent}
+        </span>
+      </div>
+    )}
     <StatsRow c={c} />
     {c.topMatch && (
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>

@@ -29,20 +29,21 @@ export type Candidate = {
   working: { q: string; a: string }; // "what am I working on" segment
   code: Code; // Codeforces / GitHub depth
   chatSubtitle: string;
+  intent?: string; // startup-fit signal — e.g. "Open to equity · joins in 30d"
 };
 
 // Hero candidate — Sanchit settles and gets his resume requested.
 export const hero: Candidate = {
   id: "sanchit",
   name: "Sanchit Tripathi",
-  role: "Software Engineer · Bangalore",
+  role: "Software Engineer · Bengaluru",
   heroPhoto: staticFile("reel/sanchit-hero.jpg"),
   facePhoto: staticFile("reel/sanchit-face.jpg"),
   verified: true,
   topMatch: true,
   lastSeen: "Today",
   ctc: "₹25 LPA",
-  location: "BLR",
+  location: "HSR Layout",
   expHeader: "5+ years of work experience",
   xps: [
     { logo: staticFile("reel/logo-cred.png"), title: "Software Engineer (Backend)", company: "CRED", dates: "Sep 2025 · 9 mo · Now", loc: "Bengaluru, India" },
@@ -52,10 +53,11 @@ export const hero: Candidate = {
   skills: ["Java", "Go", "UPI Rails", "Redis", "Kafka", "Postgres"],
   working: {
     q: "What am I currently working on at CRED?",
-    a: "Rebuilding the rewards engine on UPI rails — sub-100ms payouts for 12M members.",
+    a: "Took CRED's rewards engine from 0→1 on UPI rails — sub-100ms payouts for 12M members.",
   },
   code: { kind: "codeforces", handle: "@sanchittripathi", a: "Rating 1,259", b: "Pupil · 340 solved" },
-  chatSubtitle: "Software Engineer · Bangalore",
+  chatSubtitle: "Software Engineer · Bengaluru",
+  intent: "Open to startup equity · joins in 30d",
 };
 
 // Three candidates the boss browses + dismisses (✕) before Sanchit settles.
@@ -63,14 +65,14 @@ export const dismissed: Candidate[] = [
   {
     id: "d1",
     name: "Ananya S.",
-    role: "AI Engineer · Bangalore",
+    role: "AI Engineer · Bengaluru",
     heroPhoto: staticFile("reel/person1.jpg"),
     facePhoto: staticFile("reel/person1.jpg"),
     heroPos: "42% 30%",
     verified: true,
     lastSeen: "2d ago",
     ctc: "₹34 LPA",
-    location: "BLR",
+    location: "Indiranagar",
     expHeader: "4+ years of work experience",
     xps: [
       { logo: staticFile("reel/logo-groww.png"), title: "AI Engineer", company: "Groww", dates: "Jan 2024 · 2 y 6 mo · Now", loc: "Bengaluru, India" },
@@ -78,21 +80,22 @@ export const dismissed: Candidate[] = [
     ],
     moreXp: 1,
     skills: ["Python", "PyTorch", "Recsys", "Spark", "Airflow"],
-    working: { q: "What am I currently working on at Groww?", a: "Recommendation models for the discovery feed — 4M daily rankings." },
+    working: { q: "What am I currently working on at Groww?", a: "Built Groww's discovery feed from scratch — 4M rankings/day with a team of 3." },
     code: { kind: "github", handle: "@ananya-s", a: "512 contributions", b: "recsys-serving · 1.2k ★" },
-    chatSubtitle: "AI Engineer · Bangalore",
+    chatSubtitle: "AI Engineer · Bengaluru",
+    intent: "Wants to build 0→1 · available now",
   },
   {
     id: "d2",
     name: "Priya M.",
-    role: "Backend Engineer · Bangalore",
+    role: "Backend Engineer · Bengaluru",
     heroPhoto: staticFile("reel/person2.jpg"),
     facePhoto: staticFile("reel/person2.jpg"),
     heroPos: "48% 28%",
     verified: true,
     lastSeen: "5d ago",
     ctc: "₹30 LPA",
-    location: "IND",
+    location: "Koramangala",
     expHeader: "3+ years of work experience",
     xps: [
       { logo: staticFile("reel/logo-meesho.png"), title: "Software Engineer (Backend)", company: "Meesho", dates: "Nov 2024 · 1 y 8 mo · Now", loc: "Bengaluru, India" },
@@ -100,21 +103,22 @@ export const dismissed: Candidate[] = [
     ],
     moreXp: 1,
     skills: ["Go", "Kafka", "PostgreSQL", "Kubernetes", "gRPC"],
-    working: { q: "What am I currently working on at Meesho?", a: "Scaling order APIs — cut p99 latency in half during festive sales." },
+    working: { q: "What am I currently working on at Meesho?", a: "Owned Meesho's order APIs end-to-end — halved p99 latency during festive peak." },
     code: { kind: "github", handle: "@priyam", a: "689 contributions", b: "order-gateway · 840 ★" },
-    chatSubtitle: "Backend Engineer · Bangalore",
+    chatSubtitle: "Backend Engineer · Bengaluru",
+    intent: "Craving a small team · joins in 30d",
   },
   {
     id: "d3",
     name: "Rohan K.",
-    role: "AI Engineer · Bangalore",
+    role: "AI Engineer · Bengaluru",
     heroPhoto: staticFile("reel/person3.jpg"),
     facePhoto: staticFile("reel/person3.jpg"),
     heroPos: "50% 28%",
     verified: true,
     lastSeen: "1d ago",
     ctc: "₹42 LPA",
-    location: "BLR",
+    location: "Whitefield",
     expHeader: "3+ years of work experience",
     xps: [
       { logo: staticFile("reel/logo-kite.png"), title: "AI Engineer", company: "Kite by Zerodha", dates: "Jun 2024 · 2 y 1 mo · Now", loc: "Bengaluru, India" },
@@ -122,9 +126,10 @@ export const dismissed: Candidate[] = [
     ],
     moreXp: 2,
     skills: ["Python", "Ray", "Kafka", "ClickHouse", "Feast"],
-    working: { q: "What am I currently working on at Zerodha?", a: "Ranking models for market-depth signals — 40M events a day." },
+    working: { q: "What am I currently working on at Zerodha?", a: "Shipped Zerodha's market-depth ranking solo — 40M events a day, 0→1." },
     code: { kind: "codeforces", handle: "@rohank", a: "Rating 1,712", b: "Expert · 610 solved" },
-    chatSubtitle: "AI Engineer · Bangalore",
+    chatSubtitle: "AI Engineer · Bengaluru",
+    intent: "Ex-seed startup · wants 0→1 again",
   },
 ];
 

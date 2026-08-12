@@ -67,7 +67,7 @@ export const HingeLockup: React.FC<{ frame: number }> = ({ frame }) => {
           opacity: p2,
         }}
       >
-        (Only for bosses in tech &amp; startups in BLR)
+        (For founders hiring in Bengaluru — no recruiters, no JDs)
       </div>
     </div>
   );
