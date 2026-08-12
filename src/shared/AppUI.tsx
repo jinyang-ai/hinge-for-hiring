@@ -50,6 +50,7 @@ export type Msg = {
   time?: string;
   typingUntil?: number; // if set, show a typing indicator from `at` until this
   resume?: boolean; // render the resume attachment card instead of text
+  meet?: { when: string; accepted?: boolean }; // the Google Meet invite card
 };
 
 const Avatar: React.FC<{ size: number; src?: string }> = ({ size, src }) => (
@@ -105,6 +106,30 @@ const ResumeCard: React.FC = () => (
       <div style={{ fontSize: 18, fontWeight: 700, color: INK }}>Sanchit_Resume.pdf</div>
       <div style={{ fontSize: 13.5, color: "var(--surface-60)" }}>PDF</div>
     </div>
+  </div>
+);
+
+// the Google Meet invite as it sits in the thread — and the moment it is accepted
+const MeetCard: React.FC<{ when: string; accepted?: boolean }> = ({ when, accepted }) => (
+  <div style={{ width: 350, background: "#fff", borderRadius: 16, border: "1px solid #e6e2de", padding: "16px 18px" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
+      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden style={{ flex: "0 0 auto" }}>
+        <path d="M3 7.5A1.5 1.5 0 0 1 4.5 6H14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4.5A1.5 1.5 0 0 1 3 16.5v-9z" fill="#00832D" />
+        <path d="M15 9.6l4.3-3.1c.7-.5 1.7 0 1.7.9v9.2c0 .9-1 1.4-1.7.9L15 14.4V9.6z" fill="#00AC47" />
+        <path d="M15 9.6V7a1 1 0 0 0-1-1h-3.2l4.2 3.6z" fill="#FFBA00" />
+        <path d="M10.8 18H14a1 1 0 0 0 1-1v-2.6L10.8 18z" fill="#0066DA" />
+      </svg>
+      <div style={{ minWidth: 0 }}>
+        <div style={{ fontSize: 19, fontWeight: 700, color: INK }}>Google Meet</div>
+        <div style={{ fontSize: 16, color: "var(--surface-60)", marginTop: 1 }}>{when}</div>
+      </div>
+    </div>
+    {accepted && (
+      <div style={{ marginTop: 14, paddingTop: 13, borderTop: "1px solid #f0ece7", display: "flex", alignItems: "center", gap: 9 }}>
+        <span style={{ width: 24, height: 24, borderRadius: 999, background: "#13bf69", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700 }}>✓</span>
+        <span style={{ fontSize: 18, fontWeight: 700, color: "#0f9d58" }}>Sanchit accepted</span>
+      </div>
+    )}
   </div>
 );
 
@@ -174,7 +199,9 @@ export const TalChat: React.FC<{
                 padding: m.resume ? 12 : "19px 25px 14px",
               }}
             >
-              {m.resume ? (
+              {m.meet ? (
+                <MeetCard when={m.meet.when} accepted={m.meet.accepted} />
+              ) : m.resume ? (
                 <>
                   <ResumeCard />
                   {m.text && <div style={{ fontSize: 19, color: INK, padding: "12px 6px 3px" }}>{m.text}</div>}

@@ -17,6 +17,7 @@ import {
   AskLoop, ASK_TOTAL,
   DeckLoop, DECK_TOTAL,
 } from "./reels/Loops";
+import { CoreLoop, TOTAL as CORE_TOTAL } from "./reels/CoreLoop";
 
 // Hinge for Hiring — boss-POV Tal reel (720×900, 30fps, ~10.3s).
 // The hiring manager swipes through candidate cards, requests a resume,
@@ -85,6 +86,9 @@ export const RemotionRoot: React.FC = () => {
 
       {/* no-middleman loop — "They replied because it was you asking." */}
       <Composition id="BecauseItWasYou" component={BecauseItWasYou} durationInFrames={BECAUSE_FRAMES} fps={30} width={720} height={900} />
+
+      {/* THE core loop: profiles -> reject -> resume -> chat -> meet -> accepted */}
+      <Composition id="CoreLoop" component={CoreLoop} durationInFrames={CORE_TOTAL} fps={30} width={720} height={900} />
 
       {/* ---- the simple set: one loop each, under 10s, GIF-able ---- */}
       <Composition id="LoopResume" component={ResumeLoop} durationInFrames={RESUME_TOTAL} fps={30} width={720} height={900} />
