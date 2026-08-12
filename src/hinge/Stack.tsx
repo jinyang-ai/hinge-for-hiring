@@ -33,7 +33,7 @@ import {
   BROWSE_MS_F,
   BROWSE_PX,
 } from "./timing";
-import { stack, dismissed } from "./data";
+import { stack } from "./data";
 import { Profile } from "./Profile";
 import { ChatScreen } from "./ChatScreen";
 import * as Ic from "./icons2";
@@ -51,7 +51,8 @@ const press = (frame: number, pf: number) => {
 };
 
 const HERO_IDX = stack.length - 1;
-const rejBeats = rejectBeats(dismissed.length);
+// one reject beat per non-hero (browsed) card in the stack
+const rejBeats = rejectBeats(HERO_IDX);
 
 // each dismissed candidate auto-scrolls (browses) its rich profile in the beat
 // before it gets flicked off — so the reel reads as "a lot is happening".
