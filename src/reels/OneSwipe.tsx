@@ -10,7 +10,7 @@ import { Stage, Slate, disp, timeline, fr, FPS, lerp, clampE, PURPLE, MUTED } fr
 import { MeetSheet } from "../notlooking/MeetSheet";
 import { GmailThread } from "./GmailThread";
 
-const MS = { thread: 4400, swipe: 3800, payoff: 1700, slate: 2200 };
+const MS = { thread: 6400, swipe: 4600, payoff: 2400, slate: 2300 };
 const ORDER: (keyof typeof MS)[] = ["thread", "swipe", "payoff", "slate"];
 export const { scenes: S, total: TOTAL } = timeline(MS, ORDER);
 
@@ -19,9 +19,9 @@ export const OneSwipe: React.FC = () => {
 
   // ---- thread ----
   const tl = frame - S.thread.start;
-  const mailAt = (i: number) => fr(420) + i * fr(560);
-  const days = Math.min(4, Math.floor(interpolate(tl, [fr(420), fr(3500)], [0, 4.99], clampE)));
-  const counterIn = lerp(tl, [fr(900), fr(1250)], [0, 1]);
+  const mailAt = (i: number) => fr(520) + i * fr(830);
+  const days = Math.min(4, Math.floor(interpolate(tl, [fr(520), fr(5200)], [0, 4.99], clampE)));
+  const counterIn = lerp(tl, [fr(1200), fr(1650)], [0, 1]);
   const threadOut = lerp(frame, [S.thread.end - fr(320), S.thread.end], [1, 0]);
 
   // ---- payoff ----

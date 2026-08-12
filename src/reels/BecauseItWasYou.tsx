@@ -1,16 +1,16 @@
 // ============================================================
-// "They replied because it was you." — the no-middleman loop, candidate side.
-// Claim: founder-to-engineer gets answered; recruiter spam gets dismissed.
-// Where AskTheWork is about what the message SAYS, this is about who SENT it.
-// Three recruiter notifications rot and get dismissed; a tal BOSS one from an
-// actual founder is opened in 40 seconds and answered in 11 minutes.
+// "They replied because it was you asking." — the no-middleman loop,
+// candidate side. Where AskTheWork is about what the message SAYS, this is
+// about who SENT it. Recruiter pings rot and get dismissed; the founder's
+// message opens in the real tal BOSS chat and gets answered in minutes.
 // ============================================================
 import React from "react";
 import { AbsoluteFill, spring, useCurrentFrame, Img, staticFile } from "remotion";
 import { Stage, Slate, disp, timeline, fr, FPS, lerp, INK, PURPLE, GREEN, MUTED } from "../shared/kit";
+import { TalChat, type Msg } from "../shared/AppUI";
 
-const MS = { ignored: 3200, arrives: 2200, opened: 2600, replied: 2300, line: 1600, slate: 2100 };
-const ORDER: (keyof typeof MS)[] = ["ignored", "arrives", "opened", "replied", "line", "slate"];
+const MS = { ignored: 4400, opened: 3800, replied: 4000, line: 2200, slate: 2300 };
+const ORDER: (keyof typeof MS)[] = ["ignored", "opened", "replied", "line", "slate"];
 export const { scenes: S, total: TOTAL } = timeline(MS, ORDER);
 
 const IGNORED = [
@@ -19,158 +19,145 @@ const IGNORED = [
   { app: "LINKEDIN", from: "Hiring Partner", txt: "Quick chat about your profile?", ago: "6d ago" },
 ];
 
+// the founder's message, in the boss's own voice
+const FOUNDER_MSG = "I'm the founder — 9 of us, building payments infra. Loved the 0→1 you did on CRED's rewards engine. 20 minutes this week?";
+
+const CHAT: Msg[] = [
+  { side: "in", at: fr(400), text: FOUNDER_MSG, time: "8:31 PM" },
+];
+const CHAT_REPLIED: Msg[] = [
+  { side: "in", at: 0, text: FOUNDER_MSG, time: "8:31 PM" },
+  { side: "out", at: fr(600), typingUntil: fr(1500), text: "Not looking, honestly. But that sounds interesting — Friday evening?", time: "8:42 PM" },
+];
+
 export const BecauseItWasYou: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const il = frame - S.ignored.start;
-  const headIn = lerp(il, [fr(100), fr(460)], [0, 1]);
-  const ignoredOut = lerp(frame, [S.arrives.start + fr(200), S.arrives.start + fr(620)], [1, 0]);
-
-  // the tal message must arrive WHILE the ignored pile is still on screen —
-  // that overlap is the whole contrast — and only then do the others swipe off.
-  const TAL_AT = fr(1900);
-  const talIn = spring({ frame: Math.max(0, il - TAL_AT), fps: FPS, config: { damping: 14, stiffness: 150, mass: 0.9 } });
+  const il = frame;
+  const headIn = lerp(il, [fr(150), fr(560)], [0, 1]);
+  const TAL_AT = fr(2300);
+  const talIn = spring({ frame: Math.max(0, il - TAL_AT), fps: FPS, config: { damping: 14, stiffness: 140, mass: 0.95 } });
+  const ignoredOut = lerp(frame, [S.ignored.end - fr(400), S.ignored.end], [1, 0]);
 
   const ol = frame - S.opened.start;
-  const openIn = spring({ frame: Math.max(0, ol - fr(120)), fps: FPS, config: { damping: 15, stiffness: 150, mass: 0.9 } });
-  const openStamp = spring({ frame: Math.max(0, ol - fr(1400)), fps: FPS, config: { damping: 12, stiffness: 190, mass: 0.8 } });
+  const openStamp = spring({ frame: Math.max(0, ol - fr(1900)), fps: FPS, config: { damping: 12, stiffness: 180, mass: 0.85 } });
 
   const rl = frame - S.replied.start;
-  const repIn = spring({ frame: Math.max(0, rl - fr(200)), fps: FPS, config: { damping: 16, stiffness: 170, mass: 0.8 } });
-  const repStamp = spring({ frame: Math.max(0, rl - fr(1250)), fps: FPS, config: { damping: 12, stiffness: 190, mass: 0.8 } });
+  const repStamp = spring({ frame: Math.max(0, rl - fr(2100)), fps: FPS, config: { damping: 12, stiffness: 180, mass: 0.85 } });
 
   const ll = frame - S.line.start;
   const lIn = spring({ frame: Math.max(0, ll), fps: FPS, config: { damping: 14, stiffness: 150, mass: 0.9 } });
+  const lIn2 = spring({ frame: Math.max(0, ll - fr(260)), fps: FPS, config: { damping: 14, stiffness: 150, mass: 0.9 } });
 
-  // the tal BOSS notification — used in two scenes, so it lives here
-  const TalNotif: React.FC<{ opened?: boolean }> = ({ opened }) => (
-    <div
-      style={{
-        background: "#fff",
-        borderRadius: 22,
-        border: `1.5px solid ${opened ? "rgba(19,191,105,0.45)" : "#eae6e1"}`,
-        padding: "20px 22px",
-        boxShadow: "0 18px 40px -18px rgba(20,28,48,0.45)",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 13 }}>
-        <Img src={staticFile("reel/tal-boss-wordmark-dark.png")} style={{ height: 26, width: "auto", display: "block" }} />
-        <span style={{ marginLeft: "auto", fontSize: 14, color: "#a9a29b" }}>now</span>
-      </div>
-      <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-        <Img src={staticFile("reel/boss-face.jpg")} style={{ width: 54, height: 54, borderRadius: 999, objectFit: "cover", objectPosition: "52% 20%", flex: "0 0 auto" }} />
-        <div style={{ minWidth: 0 }}>
-          <div style={{ fontSize: 19, fontWeight: 700, color: INK }}>
-            Arjun <span style={{ fontWeight: 500, color: MUTED }}>· Founder</span>
-          </div>
-          <div style={{ fontSize: 17.5, color: "#3a3a3f", marginTop: 5, lineHeight: 1.4 }}>
-            I&rsquo;m the founder. 9 of us, building payments infra. Loved the 0→1 on CRED&rsquo;s rewards engine — 20 minutes this week?
-          </div>
-        </div>
+  const Stamp: React.FC<{ s: number; text: string; colour: string }> = ({ s, text, colour }) => (
+    <div style={{ position: "absolute", left: 0, right: 0, top: 286, display: "flex", justifyContent: "center", opacity: s, transform: `scale(${0.86 + 0.14 * s})` }}>
+      <div style={{ background: "#fff", borderRadius: 999, padding: "13px 28px", boxShadow: "0 10px 26px -12px rgba(20,28,48,0.4)", border: "1px solid #eee" }}>
+        <div style={disp(34, { color: colour })}>{text}</div>
       </div>
     </div>
   );
 
   return (
     <Stage>
-      {/* ---------- the ignored pile ---------- */}
+      {/* ---------- their phone: three pings that die ---------- */}
       {frame < S.opened.start && (
-        <AbsoluteFill style={{ padding: "84px 40px 0" }}>
-          <div style={{ ...disp(34, { textAlign: "left", color: MUTED }), opacity: headIn * ignoredOut, marginBottom: 26 }}>
-            Their phone, this month
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14, opacity: ignoredOut }}>
+        <AbsoluteFill style={{ padding: "92px 40px 0", opacity: ignoredOut }}>
+          <div style={{ ...disp(38, { textAlign: "left", color: MUTED }), opacity: headIn, marginBottom: 30 }}>Their phone, this month</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
             {IGNORED.map((m, i) => {
-              const s = spring({ frame: Math.max(0, il - fr(520) - i * fr(430)), fps: FPS, config: { damping: 17, stiffness: 180, mass: 0.8 } });
+              const s = spring({ frame: Math.max(0, il - fr(400) - i * fr(560)), fps: FPS, config: { damping: 17, stiffness: 170, mass: 0.85 } });
               if (s <= 0.001) return null;
-              const swipedOff = lerp(il, [fr(2750) + i * fr(160), fr(3150) + i * fr(160)], [0, 1]);
+              const swipedOff = lerp(il, [fr(3300) + i * fr(170), fr(3800) + i * fr(170)], [0, 1]);
               return (
                 <div
                   key={i}
                   style={{
                     background: "#f6f6f7",
                     border: "1px solid #ececef",
-                    borderRadius: 20,
-                    padding: "16px 19px",
+                    borderRadius: 22,
+                    padding: "20px 22px",
                     opacity: s * (1 - swipedOff),
-                    transform: `translate(${swipedOff * 560}px, ${(1 - s) * 18}px)`,
+                    transform: `translate(${swipedOff * 620}px, ${(1 - s) * 20}px)`,
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                    <span style={{ fontSize: 11.5, fontWeight: 700, color: "#b6b6bd", letterSpacing: "0.1em" }}>{m.app}</span>
-                    <span style={{ marginLeft: "auto", fontSize: 13, color: "#c2c2c9" }}>{m.ago}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: "#b6b6bd", letterSpacing: "0.11em" }}>{m.app}</span>
+                    <span style={{ marginLeft: "auto", fontSize: 15, color: "#c2c2c9" }}>{m.ago}</span>
                   </div>
-                  <div style={{ fontSize: 17, fontWeight: 700, color: "#a4a4ac", marginTop: 7 }}>{m.from}</div>
-                  <div style={{ fontSize: 16, color: "#b8b8c0", marginTop: 3 }}>{m.txt}</div>
+                  <div style={{ fontSize: 21, fontWeight: 700, color: "#a4a4ac", marginTop: 9 }}>{m.from}</div>
+                  <div style={{ fontSize: 19.5, color: "#b8b8c0", marginTop: 5 }}>{m.txt}</div>
                 </div>
               );
             })}
           </div>
 
-          {/* the one that is different — absolutely placed, so it settles into
-              the middle of the frame once the ignored pile has swiped away */}
+          {/* the one that is different — lands while the dead ones are still up */}
           {il >= TAL_AT && (
             <div
               style={{
                 position: "absolute",
                 left: 40,
                 right: 40,
-                top: lerp(il, [TAL_AT, TAL_AT + fr(1400)], [566, 330]),
+                top: lerp(il, [TAL_AT, TAL_AT + fr(1300)], [600, 372]),
                 opacity: talIn,
-                transform: `translateY(${(1 - talIn) * 40}px) scale(${0.96 + 0.04 * talIn})`,
+                transform: `translateY(${(1 - talIn) * 42}px) scale(${0.96 + 0.04 * talIn})`,
               }}
             >
-              <TalNotif />
+              <div style={{ background: "#fff", borderRadius: 24, border: "1.5px solid #eae6e1", padding: "22px 24px", boxShadow: "0 20px 46px -18px rgba(20,28,48,0.5)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 15 }}>
+                  <Img src={staticFile("reel/tal-boss-wordmark-dark.png")} style={{ height: 30, width: "auto", display: "block" }} />
+                  <span style={{ marginLeft: "auto", fontSize: 16, color: "#a9a29b" }}>now</span>
+                </div>
+                <div style={{ display: "flex", gap: 15, alignItems: "flex-start" }}>
+                  <Img src={staticFile("reel/boss-face.jpg")} style={{ width: 60, height: 60, borderRadius: 999, objectFit: "cover", objectPosition: "52% 20%", flex: "0 0 auto" }} />
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 22, fontWeight: 700, color: INK }}>
+                      Arjun <span style={{ fontWeight: 500, color: MUTED }}>· Founder</span>
+                    </div>
+                    <div style={{ fontSize: 20, color: "#3a3a3f", marginTop: 6, lineHeight: 1.42 }}>{FOUNDER_MSG}</div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </AbsoluteFill>
       )}
 
-      {/* ---------- opened ---------- */}
+      {/* ---------- opened, in the tal BOSS chat ---------- */}
       {frame >= S.opened.start && frame < S.replied.start && (
-        <AbsoluteFill style={{ padding: "150px 40px 0" }}>
-          <div style={{ opacity: openIn, transform: `scale(${0.97 + 0.03 * openIn})` }}>
-            <TalNotif opened />
-          </div>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: 46, opacity: openStamp, transform: `scale(${0.86 + 0.14 * openStamp})` }}>
-            <div style={disp(42, { color: GREEN })}>Opened in 40 seconds</div>
-          </div>
+        <AbsoluteFill>
+          <TalChat
+            lf={ol}
+            msgs={CHAT}
+            name="Arjun Mehta"
+            subtitle="Founder · 9-person team · Bengaluru"
+            face={staticFile("reel/boss-face.jpg")}
+            chips={["Setup Meet", "View profile"]}
+          />
+          <Stamp s={openStamp} text="Opened in 40 seconds" colour={GREEN} />
         </AbsoluteFill>
       )}
 
       {/* ---------- replied ---------- */}
       {frame >= S.replied.start && frame < S.line.start && (
-        <AbsoluteFill style={{ padding: "150px 40px 0" }}>
-          <div style={{ opacity: 0.42 }}>
-            <TalNotif opened />
-          </div>
-          <div
-            style={{
-              maxWidth: "82%",
-              marginTop: 26,
-              background: "#262220",
-              color: "#F5EFE7",
-              borderRadius: "20px 20px 20px 5px",
-              padding: "17px 20px",
-              fontSize: 19,
-              lineHeight: 1.4,
-              opacity: repIn,
-              transform: `translateY(${(1 - repIn) * 18}px)`,
-            }}
-          >
-            Not looking, but that sounds interesting. Friday evening?
-          </div>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: 44, opacity: repStamp, transform: `scale(${0.86 + 0.14 * repStamp})` }}>
-            <div style={disp(42, { color: PURPLE })}>Replied in 11 minutes</div>
-          </div>
+        <AbsoluteFill>
+          <TalChat
+            lf={rl}
+            msgs={CHAT_REPLIED}
+            name="Arjun Mehta"
+            subtitle="Founder · 9-person team · Bengaluru"
+            face={staticFile("reel/boss-face.jpg")}
+            chips={["Setup Meet", "View profile"]}
+          />
+          <Stamp s={repStamp} text="Replied in 11 minutes" colour={PURPLE} />
         </AbsoluteFill>
       )}
 
       {/* ---------- the line ---------- */}
       {frame >= S.line.start && frame < S.slate.start && (
-        <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 14, padding: "0 52px" }}>
-          <div style={{ ...disp(60), opacity: lIn, transform: `translateY(${(1 - lIn) * 18}px)` }}>They replied because</div>
-          <div style={{ ...disp(60, { color: PURPLE }), opacity: lIn }}>it was you asking.</div>
+        <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 16, padding: "0 52px" }}>
+          <div style={{ ...disp(58), opacity: lIn, transform: `translateY(${(1 - lIn) * 18}px)` }}>They replied because</div>
+          <div style={{ ...disp(58, { color: PURPLE }), opacity: lIn2, transform: `translateY(${(1 - lIn2) * 18}px)` }}>it was you asking.</div>
         </AbsoluteFill>
       )}
 

@@ -8,21 +8,20 @@
 import React from "react";
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, Img, staticFile } from "remotion";
 import { Stage, Slate, disp, timeline, fr, FPS, lerp, clampE, INK, PURPLE, GREEN, MUTED } from "../shared/kit";
+import { CandidateCard } from "../hinge/CandidateCard";
+import { hero, dismissed, type Candidate } from "../hinge/data";
 
-const MS = { search: 1500, results: 2700, question: 1400, deck: 3400, line: 1600, slate: 2100 };
+const MS = { search: 2200, results: 3800, question: 2400, deck: 4400, line: 2200, slate: 2300 };
 const ORDER: (keyof typeof MS)[] = ["search", "results", "question", "deck", "line", "slate"];
 export const { scenes: S, total: TOTAL } = timeline(MS, ORDER);
 
 const QUERY = "backend engineer bangalore";
 
-// the ten who are actually worth a conversation
-const FACES = [
-  "reel/person1.jpg", "reel/person2.jpg", "reel/person3.jpg", "reel/sanchit-face.jpg", "reel/person2.jpg",
-  "reel/person3.jpg", "reel/sanchit-face.jpg", "reel/person1.jpg", "reel/person3.jpg", "reel/person2.jpg",
-];
-const MATCH = [
-  "Go · Kafka · ₹30L", "Java · UPI · ₹25L", "Go · gRPC · ₹34L", "Java · Redis · ₹25L", "Python · Ray · ₹42L",
-  "Go · K8s · ₹28L", "Java · Kafka · ₹31L", "Go · Postgres · ₹27L", "Rust · gRPC · ₹38L", "Java · Go · ₹29L",
+// the shortlist, in the real app UI — three cards fanned, the hero forward
+const DECK: Candidate[] = [
+  { ...dismissed[0], intent: "Open to meet · this week" },
+  { ...hero, intent: "Open to meet · this week" },
+  { ...dismissed[2], intent: "Open to meet · this week" },
 ];
 
 export const Shortlist: React.FC = () => {
@@ -30,12 +29,12 @@ export const Shortlist: React.FC = () => {
 
   // ---- the search box types ----
   const sl = frame;
-  const typed = QUERY.slice(0, Math.round(QUERY.length * interpolate(sl, [fr(260), fr(1150)], [0, 1], clampE)));
-  const caret = sl > fr(260) && sl < fr(1200);
+  const typed = QUERY.slice(0, Math.round(QUERY.length * interpolate(sl, [fr(400), fr(1750)], [0, 1], clampE)));
+  const caret = sl > fr(400) && sl < fr(1800);
 
   // ---- results flood ----
   const rl = frame - S.results.start;
-  const count = Math.round(interpolate(rl, [0, fr(900)], [0, 10247], clampE));
+  const count = Math.round(interpolate(rl, [0, fr(1400)], [0, 10247], clampE));
   const scroll = lerp(rl, [fr(500), S.results.dur + fr(400)], [0, 2100], (t) => t);
   const resultsOut = lerp(frame, [S.question.end - fr(280), S.question.end], [1, 0]);
 
@@ -45,7 +44,7 @@ export const Shortlist: React.FC = () => {
 
   // ---- the deck ----
   const dl = frame - S.deck.start;
-  const cardAt = (i: number) => fr(120) + i * fr(105);
+  const cardAt = (i: number) => fr(250) + i * fr(380);
 
   // ---- line ----
   const ll = frame - S.line.start;
@@ -101,36 +100,36 @@ export const Shortlist: React.FC = () => {
 
       {/* ---------- the shortlist ---------- */}
       {frame >= S.deck.start && frame < S.line.start && (
-        <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", padding: "0 42px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 15, width: "100%" }}>
-            {FACES.map((src, i) => {
-              const s = spring({ frame: Math.max(0, dl - cardAt(i)), fps: FPS, config: { damping: 16, stiffness: 150, mass: 0.85 } });
+        <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
+          {/* the real deck — three app cards fanned, the Top 1% one forward */}
+          <div style={{ position: "relative", width: 720, height: 620, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {DECK.map((c, i) => {
+              const s = spring({ frame: Math.max(0, dl - cardAt(i)), fps: FPS, config: { damping: 16, stiffness: 130, mass: 0.9 } });
               if (s <= 0.001) return null;
+              const spread = [-168, 0, 168][i];
+              const tilt = [-8, 0, 8][i];
+              const scale = i === 1 ? 0.86 : 0.72;
               return (
                 <div
-                  key={i}
+                  key={c.id}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    background: "#fff",
-                    border: "1px solid #ebe7e2",
-                    borderRadius: 14,
-                    padding: "11px 13px",
-                    boxShadow: "0 10px 24px -14px rgba(20,28,48,0.4)",
+                    position: "absolute",
+                    zIndex: i === 1 ? 20 : 10,
+                    transform: `translate(${spread * s}px, ${(1 - s) * 90}px) rotate(${tilt * s}deg) scale(${scale * (0.9 + 0.1 * s)})`,
                     opacity: s,
-                    transform: `translateY(${(1 - s) * 26}px) scale(${0.95 + 0.05 * s})`,
+                    filter: "drop-shadow(0 18px 38px rgba(20,28,48,0.22))",
                   }}
                 >
-                  <Img src={staticFile(src)} style={{ width: 52, height: 52, borderRadius: 11, objectFit: "cover", flex: "0 0 auto" }} />
-                  <div style={{ minWidth: 0 }}>
-                    <div style={{ fontSize: 11.5, fontWeight: 700, color: PURPLE, letterSpacing: "0.02em" }}>TOP 1% FOR YOU</div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: INK, marginTop: 3, whiteSpace: "nowrap" }}>{MATCH[i]}</div>
-                    <div style={{ fontSize: 11, color: GREEN, marginTop: 3, fontWeight: 600 }}>● Open to meet</div>
-                  </div>
+                  <CandidateCard c={c} />
                 </div>
               );
             })}
+          </div>
+          <div style={{ position: "absolute", bottom: 96, left: 0, right: 0, textAlign: "center", opacity: lerp(dl, [fr(1700), fr(2100)], [0, 1]), padding: "0 60px" }}>
+            <div style={{ fontSize: 26, fontWeight: 600, color: INK, letterSpacing: "-0.015em" }}>
+              Ten people. Matched on stack, salary and city.
+            </div>
+            <div style={{ fontSize: 22, color: GREEN, fontWeight: 600, marginTop: 8 }}>● All open to meet</div>
           </div>
         </AbsoluteFill>
       )}
