@@ -11,6 +11,8 @@ import { SCENES } from "./timing";
 import { OBVIOUSLY } from "./fonts";
 import { HingeLockup } from "./HingeLockup";
 import { Stack } from "./Stack";
+import { Match } from "./Match";
+import { Hook } from "./Hook";
 import { Outro } from "./Outro";
 
 const inter = loadInter("normal", { weights: ["400", "500", "600", "700"], ignoreTooManyRequestsWarning: true });
@@ -29,6 +31,10 @@ export const Hinge: React.FC = () => {
       {frame >= SCENES.chat.start - 8 && <Stack frame={frame} />}
       {/* the "Hinge for hiring" lockup: opener + persistent headline */}
       <HingeLockup frame={frame} />
+      {/* "It's a match!" payoff — pops above the chat, under the outro */}
+      <Match frame={frame} />
+      {/* cold-open hook — a killer candidate swiped away before the title */}
+      <Hook frame={frame} />
       {/* closing CTA: tal logo + store badges */}
       <Outro frame={frame} />
     </AbsoluteFill>

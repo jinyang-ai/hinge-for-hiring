@@ -13,13 +13,15 @@ export const f = (ms: number) => Math.round((ms * FPS) / 1000);
 
 // ---- scene durations (ms) ----
 export const SCENE_MS = {
+  hook: 1100, // cold-open: a killer candidate flashes in + gets swiped → slams into the title
   title: 1400, // intro: "Hinge for hiring" rises from below → hero hold → settles to top
   chat: 8600, // browse+dismiss 3 candidates → Sanchit scroll → Reply → chat → resume
+  match: 1900, // "It's a match!" — boss + candidate avatars pop, confetti (Hinge payoff)
   outro: 2700, // CTA slate: tal logo + tagline + App Store / Google Play badges
 } as const;
 
 export type SceneName = keyof typeof SCENE_MS;
-export const SCENE_ORDER: SceneName[] = ["title", "chat", "outro"];
+export const SCENE_ORDER: SceneName[] = ["hook", "title", "chat", "match", "outro"];
 
 export type SceneSpan = { name: SceneName; start: number; end: number; dur: number };
 export function buildTimeline(): { scenes: Record<SceneName, SceneSpan>; total: number } {

@@ -15,15 +15,18 @@ const clampE = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const CENTER_DROP = 336;
 
 export const HingeLockup: React.FC<{ frame: number }> = ({ frame }) => {
+  // local clock — the lockup owns the "title" scene, which now follows the
+  // cold-open hook, so everything is measured from title.start (not frame 0).
+  const t = frame - SCENES.title.start;
   // entrance: rise up from below + fade in
-  const enterExtra = interpolate(frame, [0, f(650)], [150, 0], { ...clampE, easing: Easing.out(Easing.cubic) });
-  const enterFade = interpolate(frame, [0, f(360)], [0, 1], clampE);
+  const enterExtra = interpolate(t, [0, f(650)], [150, 0], { ...clampE, easing: Easing.out(Easing.cubic) });
+  const enterFade = interpolate(t, [0, f(360)], [0, 1], clampE);
   // "for hiring" descriptor arrives a beat after the wordmark
-  const p2 = interpolate(frame, [f(180), f(600)], [0, 1], { ...clampE, easing: Easing.out(Easing.cubic) });
+  const p2 = interpolate(t, [f(180), f(600)], [0, 1], { ...clampE, easing: Easing.out(Easing.cubic) });
 
   // settle: centre → top, scaling the hero size down to the headline size,
   // finishing exactly as scene 2 (the card stack) begins.
-  const settle = interpolate(frame, [f(1000), SCENES.chat.start], [0, 1], { ...clampE, easing: Easing.inOut(Easing.cubic) });
+  const settle = interpolate(frame, [SCENES.title.start + f(1000), SCENES.chat.start], [0, 1], { ...clampE, easing: Easing.inOut(Easing.cubic) });
   const offsetY = CENTER_DROP * (1 - settle) + enterExtra;
   const scale = 1.4 - 0.4 * settle; // 1.4 hero → 1.0 headline (phrase is longer now)
 
