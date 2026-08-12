@@ -1,6 +1,8 @@
 import React from "react";
 import {
   AbsoluteFill,
+  Img,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
   spring,
@@ -96,19 +98,17 @@ export const CompanyWall: React.FC = () => {
         padding: `${74 * u}px 0 ${88 * u}px`,
       }}
     >
-      {/* logo */}
-      <div
+      {/* logo — tal BOSS lockup (cream, for the ink canvas) */}
+      <Img
+        src={staticFile("reel/tal-boss-wordmark-cream.png")}
         style={{
-          fontSize: 58 * u,
-          fontWeight: 800,
-          letterSpacing: "-0.04em",
-          lineHeight: 1,
+          height: 96 * u,
+          width: "auto",
+          display: "block",
           opacity: logo.s,
           transform: `translateY(${logo.ty}px)`,
         }}
-      >
-        tal
-      </div>
+      />
 
       {/* eyebrow */}
       <div

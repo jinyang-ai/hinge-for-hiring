@@ -11,15 +11,16 @@ export const REEL_H = 900;
 export const f = (ms: number) => Math.round((ms * FPS) / 1000);
 
 export const SCENE_MS = {
-  flood: 2900, // "You posted one job." → applications avalanche in, counter spins
-  gut: 1000, // freeze on the pile: "400 applications. 0 you'd actually hire."
-  sweep: 460, // the whole pile drops away
-  reveal: 2900, // three verified candidates fan in + "Or 3 people." lands
-  payoff: 2100, // tal CTA slate
+  post: 2300, // you post ONE role on a job board — title types in, "Post job" pressed
+  flood: 3900, // "You posted one job." → applications avalanche in, counter spins
+  gut: 1600, // freeze on the pile: "412 applications. ZERO you'd hire."
+  sweep: 560, // the whole pile drops away
+  reveal: 3700, // three verified candidates fan in + "Or 3 people on tal BOSS"
+  payoff: 2600, // tal BOSS CTA slate
 } as const;
 
 export type SceneName = keyof typeof SCENE_MS;
-export const SCENE_ORDER: SceneName[] = ["flood", "gut", "sweep", "reveal", "payoff"];
+export const SCENE_ORDER: SceneName[] = ["post", "flood", "gut", "sweep", "reveal", "payoff"];
 
 export type SceneSpan = { name: SceneName; start: number; end: number; dur: number };
 export function buildTimeline(): { scenes: Record<SceneName, SceneSpan>; total: number } {
@@ -42,3 +43,12 @@ export const ROW_STEP = 25; // vertical gap as the pile grows upward (rows overl
 export const FALL_FROM = -260; // px above frame where rows spawn
 // spawn curve exponent < 1 → slow first drips, then a torrent (avalanche feel)
 export const SPAWN_CURVE = 0.6;
+
+// ---- the travelling tal BOSS lockup ----
+// The SAME logo element carries the reveal into the end slate: it sits under
+// "Or 3 people on" then flies up and scales into the CTA position. One element,
+// so there is never a moment with two copies of the mark on screen.
+export const LOGO_REVEAL_TOP = 585;
+export const LOGO_REVEAL_H = 104;
+export const LOGO_CTA_TOP = 285;
+export const LOGO_CTA_H = 210;

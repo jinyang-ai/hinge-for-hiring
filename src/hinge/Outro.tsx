@@ -26,8 +26,8 @@ export const Outro: React.FC<{ frame: number }> = ({ frame }) => {
   return (
     <AbsoluteFill style={{ background: "#ffffff", opacity: fadeIn, alignItems: "center", justifyContent: "center", flexDirection: "column", zIndex: 900 }}>
       <Img
-        src={staticFile("reel/tal-logo.png")}
-        style={{ width: 300, height: "auto", display: "block", opacity: contentOut, transform: `scale(${0.9 + 0.1 * Math.min(pop, 1.05)})`, marginBottom: 26 }}
+        src={staticFile("reel/tal-boss-wordmark-dark.png")}
+        style={{ height: 190, width: "auto", display: "block", opacity: contentOut, transform: `scale(${0.9 + 0.1 * Math.min(pop, 1.05)})`, marginBottom: 30 }}
       />
       <div style={{ fontSize: 22, fontWeight: 500, color: "#8a8a8a", letterSpacing: "0.01em", opacity: tShow * contentOut, marginBottom: 48 }}>
         where Bangalore founders hire directly
