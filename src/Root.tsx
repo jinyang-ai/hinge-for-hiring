@@ -2,6 +2,8 @@ import { Composition } from "remotion";
 import { Hinge } from "./hinge/Hinge";
 import { TOTAL_FRAMES, FPS, REEL_W, REEL_H } from "./hinge/timing";
 import { CompanyWall } from "./wall/CompanyWall";
+import { Flood } from "./flood/Flood";
+import { TOTAL_FRAMES as FLOOD_FRAMES, FPS as FLOOD_FPS, REEL_W as FLOOD_W, REEL_H as FLOOD_H } from "./flood/timing";
 
 // Hinge for Hiring — boss-POV Tal reel (720×900, 30fps, ~10.3s).
 // The hiring manager swipes through candidate cards, requests a resume,
@@ -28,6 +30,18 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1080}
         height={1920}
+      />
+
+      {/* "400 applications. Or 3 people." — job-board pain: a torrent of
+          faceless applications buries the frame, then three verified humans
+          fan in. 720×900 to match the main reel. */}
+      <Composition
+        id="Flood"
+        component={Flood}
+        durationInFrames={FLOOD_FRAMES}
+        fps={FLOOD_FPS}
+        width={FLOOD_W}
+        height={FLOOD_H}
       />
     </>
   );
