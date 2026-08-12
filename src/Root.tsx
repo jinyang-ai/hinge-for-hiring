@@ -6,6 +6,11 @@ import { Flood } from "./flood/Flood";
 import { TOTAL_FRAMES as FLOOD_FRAMES, FPS as FLOOD_FPS, REEL_W as FLOOD_W, REEL_H as FLOOD_H } from "./flood/timing";
 import { NotLooking } from "./notlooking/NotLooking";
 import { TOTAL_FRAMES as NL_FRAMES, FPS as NL_FPS, REEL_W as NL_W, REEL_H as NL_H } from "./notlooking/timing";
+import { OneSwipe, TOTAL as ONESWIPE_FRAMES } from "./reels/OneSwipe";
+import { SpeedRun, TOTAL as SPEEDRUN_FRAMES } from "./reels/SpeedRun";
+import { AskTheWork, TOTAL as ASK_FRAMES } from "./reels/AskTheWork";
+import { Shortlist, TOTAL as SHORTLIST_FRAMES } from "./reels/Shortlist";
+import { BecauseItWasYou, TOTAL as BECAUSE_FRAMES } from "./reels/BecauseItWasYou";
 
 // Hinge for Hiring — boss-POV Tal reel (720×900, 30fps, ~10.3s).
 // The hiring manager swipes through candidate cards, requests a resume,
@@ -57,6 +62,23 @@ export const RemotionRoot: React.FC = () => {
         width={NL_W}
         height={NL_H}
       />
+
+      {/* ---- the product-loop set: one reel per loop, each with one claim ---- */}
+
+      {/* whole loop — "Cold to calendar in 41 seconds." */}
+      <Composition id="SpeedRun" component={SpeedRun} durationInFrames={SPEEDRUN_FRAMES} fps={30} width={720} height={900} />
+
+      {/* Talk loop — "Ask about the work. They answer." */}
+      <Composition id="AskTheWork" component={AskTheWork} durationInFrames={ASK_FRAMES} fps={30} width={720} height={900} />
+
+      {/* Discover loop — "You don't search. The shortlist is the app." */}
+      <Composition id="Shortlist" component={Shortlist} durationInFrames={SHORTLIST_FRAMES} fps={30} width={720} height={900} />
+
+      {/* Meet loop — "Six emails, or one swipe." */}
+      <Composition id="OneSwipe" component={OneSwipe} durationInFrames={ONESWIPE_FRAMES} fps={30} width={720} height={900} />
+
+      {/* no-middleman loop — "They replied because it was you asking." */}
+      <Composition id="BecauseItWasYou" component={BecauseItWasYou} durationInFrames={BECAUSE_FRAMES} fps={30} width={720} height={900} />
     </>
   );
 };
