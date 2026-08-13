@@ -15,7 +15,7 @@ import { MeetSheet } from "../notlooking/MeetSheet";
 import { type Candidate } from "../hinge/data";
 import { CORE_STACK, MEERA } from "./coreCast";
 
-const MS = { deck: 3200, read: 3800, chat: 6600, meet: 3300, accepted: 2900, line: 1900, slate: 2100 };
+const MS = { deck: 5000, read: 3800, chat: 6600, meet: 3300, accepted: 2900, line: 1900, slate: 2100 };
 const ORDER: (keyof typeof MS)[] = ["deck", "read", "chat", "meet", "accepted", "line", "slate"];
 export const { scenes: S, total: TOTAL } = timeline(MS, ORDER);
 
@@ -53,8 +53,8 @@ export const CoreLoop: React.FC = () => {
 
   // ---- deck: two rejected, one settles ----
   const rise = spring({ frame: Math.max(0, frame - fr(80)), fps: FPS, config: { damping: 16, stiffness: 140, mass: 0.85 } });
-  const flick = (i: number) => lerp(frame, [fr(900) + i * fr(800), fr(1480) + i * fr(800)], [0, 1]);
-  const press = (i: number) => (frame > fr(830) + i * fr(800) && frame < fr(1010) + i * fr(800) ? 0.9 : 1);
+  const flick = (i: number) => lerp(frame, [fr(1600) + i * fr(1700), fr(2200) + i * fr(1700)], [0, 1]);
+  const press = (i: number) => (frame > fr(1480) + i * fr(1700) && frame < fr(1700) + i * fr(1700) ? 0.9 : 1);
 
   // ---- read: the card opens out, then the profile is scrolled ----
   const rl = frame - S.read.start;
