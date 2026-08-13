@@ -1,5 +1,5 @@
 // ============================================================
-// One anonymous inbound application — the stuff that actually lands in a
+// One anonymous inbound application - the stuff that actually lands in a
 // founder's inbox when they post a role on a job board. Deliberately
 // faceless: grey avatar, redacted name bar, and ONE disqualifying tag
 // (wrong stack, wrong city, 90-day notice, ₹90L ask, 47 jobs today).
@@ -14,7 +14,7 @@ const PAPER = "#f4f4f7";
 
 export type Junk = { role: string; tag: string; barW: number; barW2: number };
 
-// deterministic pool — no Math.random anywhere (render workers must agree)
+// deterministic pool - no Math.random anywhere (render workers must agree)
 const ROLES = [
   "SAP Consultant · 12 yrs",
   "Manual Tester · 8 yrs",

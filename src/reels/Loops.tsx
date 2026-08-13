@@ -1,6 +1,6 @@
 // ============================================================
 // The simple set. One product loop each, shown plainly in the app UI, one
-// line, the lockup, out — under 10s so each works as a GIF.
+// line, the lockup, out - under 10s so each works as a GIF.
 //
 // Deliberately NO villain screens, no contrast setups, no headline
 // sequences. The product working IS the ad; everything else was scaffolding
@@ -31,7 +31,7 @@ const Line: React.FC<{ local: number; a: string; b: string }> = ({ local, a, b }
 };
 
 // ============================================================
-// 1 — REQUEST A RESUME
+// 1 - REQUEST A RESUME
 // profile → Request resume → it arrives in the chat.
 // ============================================================
 const RESUME_MS = { profile: 2600, chat: 3800, line: 1700, slate: 1900 };
@@ -65,7 +65,7 @@ export const ResumeLoop: React.FC = () => {
 };
 
 // ============================================================
-// 2 — BOOK THE INTERVIEW
+// 2 - BOOK THE INTERVIEW
 // Setup Meet → pick a slot → swipe → Google Meet sent.
 // ============================================================
 const MEET_MS = { sheet: 5200, line: 1700, slate: 1900 };
@@ -84,7 +84,7 @@ export const MeetLoop: React.FC = () => {
 };
 
 // ============================================================
-// 3 — ASK ABOUT THE WORK
+// 3 - ASK ABOUT THE WORK
 // the candidate's own prompt → Reply → a real answer.
 // ============================================================
 const ASK_MS = { profile: 2500, chat: 3700, line: 1600, slate: 1900 };
@@ -93,7 +93,7 @@ export const { scenes: AS, total: ASK_TOTAL } = timeline(ASK_MS, ASK_ORDER);
 
 const ASK_CHAT: Msg[] = [
   { side: "out", at: fr(250), text: "How did you get payouts under 100ms on UPI rails?", time: "9:12 PM" },
-  { side: "in", at: fr(1200), typingUntil: fr(2100), text: "Sharded the ledger, settlement async — the payout path never touches the DB.", time: "9:23 PM" },
+  { side: "in", at: fr(1200), typingUntil: fr(2100), text: "Sharded the ledger, settlement async. The payout path never touches the DB.", time: "9:23 PM" },
 ];
 
 export const AskLoop: React.FC = () => {
@@ -118,7 +118,7 @@ export const AskLoop: React.FC = () => {
 };
 
 // ============================================================
-// 4 — THE DECK
+// 4 - THE DECK
 // swipe past, land on the one who is already matched to you.
 // ============================================================
 const DECK_MS = { deck: 5000, line: 1700, slate: 1900 };

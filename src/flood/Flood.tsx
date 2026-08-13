@@ -1,8 +1,8 @@
 // ============================================================
-// "412 applications. Or 3 people." — job-board pain, boss-POV.
+// "412 applications. Or 3 people." - job-board pain, boss-POV.
 // post: you post ONE role on a job board.  flood: a torrent of faceless
 // applications buries the frame while a counter spins to 412.  gut: it
-// freezes — "ZERO you'd hire."  sweep: the pile drops away.  reveal: three
+// freezes - "ZERO you'd hire."  sweep: the pile drops away.  reveal: three
 // verified humans fan in under the tal BOSS lockup.  payoff: that SAME
 // lockup flies up into the end slate. One global frame drives every scene.
 // ============================================================
@@ -84,7 +84,7 @@ export const Flood: React.FC = () => {
 
   return (
     <AbsoluteFill className="r245-stage" style={{ fontFamily: inter.fontFamily, ["--font-anton" as string]: OBVIOUSLY, background: "#fff", overflow: "hidden" }}>
-      {/* ---------- scene 0 — posting the job ---------- */}
+      {/* ---------- scene 0 - posting the job ---------- */}
       {frame < SCENES.post.end && <JobPost local={frame - postStart} dur={SCENES.post.dur} />}
 
       {/* ---------- the avalanche ---------- */}

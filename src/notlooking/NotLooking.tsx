@@ -1,5 +1,5 @@
 // ============================================================
-// "Not looking. But open." — passive-talent reel, boss-POV.
+// "Not looking. But open." - passive-talent reel, boss-POV.
 // premise → closed (grey + NOT LOOKING) → wall of no → ★ the flip →
 // the wave → Pick a time / SWIPE TO INVITE → end slate.
 // One global frame drives every scene; each beat reads its own local clock.
@@ -26,13 +26,13 @@ const clampE = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const CLOSED: Candidate = { ...hero, intent: "Not open to offers" };
 const OPEN: Candidate = { ...hero, intent: "Open to meet · this week" };
 
-// the wall of no — two more who will never apply
+// the wall of no - two more who will never apply
 const REFUSERS: { c: Candidate; stamp: string }[] = [
   { c: { ...dismissed[0], intent: "Not on any job board" }, stamp: "No job board" },
   { c: { ...dismissed[2], intent: "Ignores recruiters" }, stamp: "Ignores recruiters" },
 ];
 
-// beat 05 — twelve faces, flipping grey → open in a diagonal wave
+// beat 05 - twelve faces, flipping grey → open in a diagonal wave
 const WAVE_FACES = [
   "reel/person1.jpg", "reel/person2.jpg", "reel/person3.jpg", "reel/sanchit-face.jpg",
   "reel/person3.jpg", "reel/sanchit-face.jpg", "reel/person1.jpg", "reel/person2.jpg",

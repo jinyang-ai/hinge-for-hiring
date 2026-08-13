@@ -1,9 +1,9 @@
 // ============================================================
-// "Cold to calendar in 41 seconds." — the whole loop, end to end, in the
+// "Cold to calendar in 41 seconds." - the whole loop, end to end, in the
 // real app UI: the deck with its ✕ / Request resume / Reply bar, the profile,
 // the chat, the Pick a time sheet. A timer runs in the corner the whole way
 // and then flies to the centre to become the headline number.
-// The timer is the boss's elapsed in-app time — the reel is a compressed
+// The timer is the boss's elapsed in-app time - the reel is a compressed
 // dramatisation of a real flow, not a real-time recording.
 // ============================================================
 import React from "react";
@@ -23,7 +23,7 @@ const HERO: Candidate = { ...hero, intent: "Open to meet · this week" };
 const FIRST = dismissed[0];
 const CARD_SCALE = 1.24;
 
-// timer geometry — fixed width so the corner→centre flight is deterministic
+// timer geometry - fixed width so the corner→centre flight is deterministic
 const CHIP_W = 138;
 const CORNER_L = 720 - 26 - CHIP_W;
 const END_SCALE = 2.1;

@@ -1,8 +1,8 @@
 // ============================================================
-// Scene 2 payoff (4:5, BOSS-POV) — the chat. The boss already tapped
+// Scene 2 payoff (4:5, BOSS-POV) - the chat. The boss already tapped
 // "Request resume" on the profile, so the chat opens with the request
 // (dark, right) in place; the chip reads "Resume requested". A beat later
-// Sanchit replies with his resume (beige, left — mini page preview + PDF).
+// Sanchit replies with his resume (beige, left - mini page preview + PDF).
 // Sized up ~30% vs the first pass so it fills the 720-wide frame.
 // ============================================================
 import React from "react";
@@ -43,7 +43,7 @@ const appear = (lf: number, at: number, rise = 18): React.CSSProperties => {
   return { opacity: p, transform: `translateY(${(1 - p) * rise}px)` };
 };
 
-// candidate's resume reply — mini resume page preview + PDF attachment
+// candidate's resume reply - mini resume page preview + PDF attachment
 const ResumeReply: React.FC<{ lf: number; at: number }> = ({ lf, at }) => (
   <div style={{ display: "flex", alignItems: "flex-end", gap: 12, alignSelf: "flex-start", maxWidth: 470, ...appear(lf, at, 24) }}>
     <Avatar size={52} />
@@ -111,11 +111,11 @@ export const ChatScreen: React.FC<{ lf: number }> = ({ lf }) => {
         </div>
       </div>
 
-      {/* thread — bottom anchored */}
+      {/* thread - bottom anchored */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 18, padding: "20px 28px 16px", overflow: "hidden" }}>
         <div style={{ alignSelf: "center", fontSize: 22, fontWeight: 700, color: INK }}>Today</div>
 
-        {/* boss's resume request (dark, right) — already in place when chat opens */}
+        {/* boss's resume request (dark, right) - already in place when chat opens */}
         {lf >= CAND_REPLY_FRAME && (
           <div style={{ alignSelf: "flex-end", maxWidth: 570, background: REQ_BG, borderRadius: "26px 26px 10px 26px", padding: "19px 25px 14px", ...appear(lf, CAND_REPLY_FRAME) }}>
             <div style={{ fontSize: 28, color: "#fff", lineHeight: 1.4 }}>

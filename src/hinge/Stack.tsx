@@ -1,5 +1,5 @@
 // ============================================================
-// Scene 2 (4:5) — "Chat with your next boss, directly". A compact headline
+// Scene 2 (4:5) - "Chat with your next boss, directly". A compact headline
 // drops in; a stack of boss cards auto-swipes (three rejected, Aryan settles).
 // Then the settled card expands to FILL WIDTH (becoming a 720-wide phone
 // viewport) while the profile scrolls to the "what will you be working on now?"
@@ -43,7 +43,7 @@ const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 const lerpF = (frame: number, i: number[], o: number[], easing = EASE) =>
   interpolate(frame, i, o, { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing });
 
-// press() dip — ported.
+// press() dip - ported.
 const press = (frame: number, pf: number) => {
   const t = frame - pf;
   if (t < 0 || t > PRESS_FRAMES) return 1;
@@ -55,7 +55,7 @@ const HERO_IDX = stack.length - 1;
 const rejBeats = rejectBeats(HERO_IDX);
 
 // each dismissed candidate auto-scrolls (browses) its rich profile in the beat
-// before it gets flicked off — so the reel reads as "a lot is happening".
+// before it gets flicked off - so the reel reads as "a lot is happening".
 function browseScroll(i: number, lf: number): number {
   const end = rejBeats[i] - f(140);
   return interpolate(lf, [end - BROWSE_MS_F, end], [0, BROWSE_PX], {
@@ -65,7 +65,7 @@ function browseScroll(i: number, lf: number): number {
   });
 }
 
-// stackVisual() — ported; reject translate is native card px (cleared after scale).
+// stackVisual() - ported; reject translate is native card px (cleared after scale).
 function stackVisual(i: number, lf: number) {
   const isHero = i === HERO_IDX;
   if (!isHero && lf >= rejBeats[i]) {
@@ -136,7 +136,7 @@ export const Stack: React.FC<{ frame: number }> = ({ frame }) => {
     <AbsoluteFill>
       {/* the "Hinge for hiring" lockup (headline) is rendered at the top level */}
 
-      {/* card group — floats during the swipe, then grows to full-width */}
+      {/* card group - floats during the swipe, then grows to full-width */}
       <div
         style={{
           position: "absolute",
@@ -168,7 +168,7 @@ export const Stack: React.FC<{ frame: number }> = ({ frame }) => {
             );
           })}
 
-          {/* floating action bar — fades out as the profile scrolls to the segment */}
+          {/* floating action bar - fades out as the profile scrolls to the segment */}
           <div className="r245-actions" style={{ opacity: barFade, pointerEvents: "none" }}>
             <div
               className="r245-x"

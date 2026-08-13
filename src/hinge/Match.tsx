@@ -1,9 +1,9 @@
 // ============================================================
-// "It's a match!" — the Hinge payoff beat. After the boss requests the
+// "It's a match!" - the Hinge payoff beat. After the boss requests the
 // resume and Sanchit replies, the two avatars pop in from opposite sides,
 // a spark bursts between them, confetti falls. Reframes hiring as MUTUAL:
 // the candidate wants you too. On the reel's white canvas (purple only as
-// accent — no off-brand fills). Full-frame overlay above the chat, under
+// accent - no off-brand fills). Full-frame overlay above the chat, under
 // the outro (which cross-dissolves over it). Local clock from match.start.
 // ============================================================
 import React from "react";
@@ -16,7 +16,7 @@ const INK = "#1c1c1e";
 const PURPLE = "#8B4CD8";
 const clampE = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
-// deterministic confetti (no Math.random — every render worker must agree).
+// deterministic confetti (no Math.random - every render worker must agree).
 // Colours read on white: purple, ink, light-purple, amber.
 const C = [PURPLE, "#262220", "#C9A3F0", "#F2A93B"];
 const CONFETTI = [
@@ -68,7 +68,7 @@ export const Match: React.FC<{ frame: number }> = ({ frame }) => {
         return <div key={i} style={{ position: "absolute", left: `${cf.x}%`, top: `${y}%`, width: cf.size, height: cf.size * 1.4, background: C[cf.c], borderRadius: 3, transform: `translateX(${cf.drift * p}px) rotate(${p * 320 + i * 40}deg)`, opacity: op }} />;
       })}
 
-      {/* headline — ink with a purple accent on "match" */}
+      {/* headline - ink with a purple accent on "match" */}
       <div style={{ fontFamily: `${OBVIOUSLY}, sans-serif`, fontSize: 92, fontWeight: 700, color: INK, textTransform: "uppercase", letterSpacing: "-0.01em", lineHeight: 1, textAlign: "center", transform: `scale(${0.7 + 0.3 * titleIn})`, opacity: titleIn, marginBottom: 54 }}>
         It&rsquo;s a <span style={{ color: PURPLE }}>match!</span>
       </div>

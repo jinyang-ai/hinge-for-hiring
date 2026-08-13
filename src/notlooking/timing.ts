@@ -1,8 +1,8 @@
 // ============================================================
-// "Not looking. But open." — the passive-talent reel.
+// "Not looking. But open." - the passive-talent reel.
 // The engineer a founder actually wants is employed, content, and will never
 // see a job post. One mechanic carries it: a card FLIP. Front is grey and
-// closed (Not looking); the back blooms into colour (But open) — the title is
+// closed (Not looking); the back blooms into colour (But open) - the title is
 // the two faces of the same person. Payoff is the real product moment: the
 // founder picks a slot and SWIPES TO INVITE, sending a Google Meet.
 // 720×900 @30fps to match the rest of the set.
@@ -15,7 +15,7 @@ export const f = (ms: number) => Math.round((ms * FPS) / 1000);
 export const SCENE_MS = {
   premise: 1600, // "Your best hire will never apply."
   closed: 2400, // Sanchit rises, drains to greyscale, NOT LOOKING thuds on
-  wall: 1600, // two more refusals, fast — one refusal is anecdote, three is a market
+  wall: 1600, // two more refusals, fast - one refusal is anecdote, three is a market
   flip: 2300, // ★ the card turns: grey → colour, "But open."
   wave: 1900, // pull back: a grid of cards flips in a diagonal wave
   meet: 3200, // Pick a time → swipe to invite → Google Meet sent

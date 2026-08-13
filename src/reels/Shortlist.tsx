@@ -1,5 +1,5 @@
 // ============================================================
-// "You don't search. The shortlist is the app." — the Discover loop.
+// "You don't search. The shortlist is the app." - the Discover loop.
 // Claim: ten right people beats ten thousand results.
 // search: a query returns 10,247 rows of grey nobody will ever read →
 // deck: the same need, answered as ten cards already matched on stack, CTC
@@ -17,7 +17,7 @@ export const { scenes: S, total: TOTAL } = timeline(MS, ORDER);
 
 const QUERY = "backend engineer bangalore";
 
-// the shortlist, in the real app UI — three cards fanned, the hero forward
+// the shortlist, in the real app UI - three cards fanned, the hero forward
 const DECK: Candidate[] = [
   { ...dismissed[0], intent: "Open to meet · this week" },
   { ...hero, intent: "Open to meet · this week" },
@@ -101,7 +101,7 @@ export const Shortlist: React.FC = () => {
       {/* ---------- the shortlist ---------- */}
       {frame >= S.deck.start && frame < S.line.start && (
         <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
-          {/* the real deck — three app cards fanned, the Top 1% one forward */}
+          {/* the real deck - three app cards fanned, the Top 1% one forward */}
           <div style={{ position: "relative", width: 720, height: 620, display: "flex", alignItems: "center", justifyContent: "center" }}>
             {DECK.map((c, i) => {
               const s = spring({ frame: Math.max(0, dl - cardAt(i)), fps: FPS, config: { damping: 16, stiffness: 130, mass: 0.9 } });

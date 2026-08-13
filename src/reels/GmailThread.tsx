@@ -1,5 +1,5 @@
 // ============================================================
-// A Gmail thread view — the scheduling thread every founder has actually had.
+// A Gmail thread view - the scheduling thread every founder has actually had.
 // Gmail's layout and type conventions (collapsed thread rows, avatar circles,
 // Inbox chip, Reply/Forward pills) without reproducing Google's wordmark.
 // Rows land one at a time so the thread visibly grows.
@@ -16,10 +16,10 @@ const G_BLUE = "#1a73e8";
 export type Mail = { who: string; to: string; txt: string; when: string; colour: string };
 
 export const MAILS: Mail[] = [
-  { who: "me", to: "to Sanchit", txt: "Intro call — does Tuesday work?", when: "Mon, 9:14 AM", colour: "#1a73e8" },
+  { who: "me", to: "to Sanchit", txt: "Intro call. Does Tuesday work?", when: "Mon, 9:14 AM", colour: "#1a73e8" },
   { who: "Sanchit Tripathi", to: "to me", txt: "Tuesday's tough. Wednesday?", when: "Mon, 6:40 PM", colour: "#e37400" },
   { who: "me", to: "to Sanchit", txt: "Wednesday 4pm then?", when: "Tue, 11:02 AM", colour: "#1a73e8" },
-  { who: "Sanchit Tripathi", to: "to me", txt: "Sorry — can we move? Sprint demo.", when: "Wed, 8:15 AM", colour: "#e37400" },
+  { who: "Sanchit Tripathi", to: "to me", txt: "Sorry, can we move? Sprint demo.", when: "Wed, 8:15 AM", colour: "#e37400" },
   { who: "me", to: "to Sanchit", txt: "No problem. Resending an invite…", when: "Thu, 10:30 AM", colour: "#1a73e8" },
   { who: "Sanchit Tripathi", to: "to me", txt: "Didn't come through?", when: "Thu, 7:55 PM", colour: "#e37400" },
 ];

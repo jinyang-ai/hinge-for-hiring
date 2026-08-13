@@ -12,32 +12,40 @@ import { ActionBar, TalChat, type Msg } from "../shared/AppUI";
 import { CandidateCard } from "../hinge/CandidateCard";
 import { Profile } from "../hinge/Profile";
 import { MeetSheet } from "../notlooking/MeetSheet";
-import { hero, dismissed, type Candidate } from "../hinge/data";
+import { type Candidate } from "../hinge/data";
+import { CORE_STACK, MEERA } from "./coreCast";
 
-const MS = { deck: 2600, read: 3800, chat: 6600, meet: 3300, accepted: 2900, line: 1900, slate: 2100 };
+const MS = { deck: 3200, read: 3800, chat: 6600, meet: 3300, accepted: 2900, line: 1900, slate: 2100 };
 const ORDER: (keyof typeof MS)[] = ["deck", "read", "chat", "meet", "accepted", "line", "slate"];
 export const { scenes: S, total: TOTAL } = timeline(MS, ORDER);
 
-const HERO: Candidate = { ...hero, intent: "Open to meet · this week" };
-const STACK: Candidate[] = [dismissed[0], dismissed[2], HERO];
+const HERO: Candidate = MEERA;
+const STACK: Candidate[] = CORE_STACK;
+const FIRST = HERO.name.split(" ")[0];
+const FACE_POS = "46% 22%";
 const CARD_SCALE = 1.24;
 
-// ask → resume → a short exchange
+// ask, resume, a short exchange
 const CHAT: Msg[] = [
-  { side: "out", at: fr(300), text: "📋 You requested Sanchit's resume", time: "11:36 PM" },
-  { side: "in", at: fr(1300), typingUntil: fr(1950), resume: true, text: "Here's my resume 🙌", time: "11:38 PM" },
-  { side: "out", at: fr(3700), text: "This is great. Free for a quick call this week?", time: "11:41 PM" },
-  { side: "in", at: fr(4750), typingUntil: fr(5300), text: "Yes — evenings work for me.", time: "11:43 PM" },
+  { side: "out", at: fr(300), text: `📋 You requested ${FIRST}'s resume`, time: "11:36 AM" },
+  { side: "in", at: fr(1300), typingUntil: fr(1950), resume: true, text: "Here's my resume 🙌", time: "11:38 AM" },
+  { side: "out", at: fr(3700), text: "This is great. Free for a quick call this week?", time: "11:41 AM" },
+  { side: "in", at: fr(4750), typingUntil: fr(5300), text: "Yes, evenings work for me.", time: "11:43 AM" },
 ];
 
-// the invite, then the yes
+// The invite lands in the SAME thread: everything above it is already in
+// place (at: 0), so the conversation stays continuous instead of the earlier
+// messages vanishing when the calendar card appears.
+const PRIOR: Msg[] = CHAT.map((m) => ({ ...m, at: 0, typingUntil: undefined }));
 const ACCEPTED: Msg[] = [
-  { side: "out", at: 0, meet: { when: "Wed 12 Aug, 8:00 PM · 30 min" }, time: "11:44 PM" },
-  { side: "in", at: fr(1150), typingUntil: fr(1700), text: "Accepted — see you Wednesday.", time: "11:45 PM" },
+  ...PRIOR,
+  { side: "out", at: 0, meet: { when: "Wed 12 Aug, 8:00 PM · 30 min" }, time: "11:44 AM" },
+  { side: "in", at: fr(1150), typingUntil: fr(1700), text: "Accepted. See you tonight.", time: "11:45 AM" },
 ];
 const ACCEPTED_DONE: Msg[] = [
-  { side: "out", at: 0, meet: { when: "Wed 12 Aug, 8:00 PM · 30 min", accepted: true }, time: "11:44 PM" },
-  { side: "in", at: 0, text: "Accepted — see you Wednesday.", time: "11:45 PM" },
+  ...PRIOR,
+  { side: "out", at: 0, meet: { when: "Wed 12 Aug, 8:00 PM · 30 min", accepted: true }, time: "11:44 AM" },
+  { side: "in", at: 0, text: "Accepted. See you tonight.", time: "11:45 AM" },
 ];
 
 export const CoreLoop: React.FC = () => {
@@ -105,14 +113,14 @@ export const CoreLoop: React.FC = () => {
       )}
 
       {/* ---------- resume + a short exchange ---------- */}
-      {frame >= S.chat.start && frame < S.meet.start && <TalChat lf={frame - S.chat.start} msgs={CHAT} />}
+      {frame >= S.chat.start && frame < S.meet.start && <TalChat lf={frame - S.chat.start} msgs={CHAT} name={HERO.name} subtitle={HERO.chatSubtitle} face={HERO.facePhoto} facePos={FACE_POS} />}
 
       {/* ---------- set up the meeting ---------- */}
-      {frame >= S.meet.start && frame < S.accepted.start && <MeetSheet local={frame - S.meet.start} f={fr} />}
+      {frame >= S.meet.start && frame < S.accepted.start && <MeetSheet local={frame - S.meet.start} f={fr} name={HERO.name} subtitle="Software Engineer, CRED" face={HERO.facePhoto} facePos={FACE_POS} />}
 
       {/* ---------- they accept ---------- */}
       {frame >= S.accepted.start && frame < S.line.start && (
-        <TalChat lf={al} msgs={showDone ? ACCEPTED_DONE : ACCEPTED} />
+        <TalChat lf={al} msgs={showDone ? ACCEPTED_DONE : ACCEPTED} name={HERO.name} subtitle={HERO.chatSubtitle} face={HERO.facePhoto} facePos={FACE_POS} />
       )}
 
       {/* ---------- the line ---------- */}

@@ -19,9 +19,9 @@ import {
 } from "./reels/Loops";
 import { CoreLoop, TOTAL as CORE_TOTAL } from "./reels/CoreLoop";
 
-// Hinge for Hiring — boss-POV Tal reel (720×900, 30fps, ~10.3s).
+// Hinge for Hiring - boss-POV Tal reel (720×900, 30fps, ~10.3s).
 // The hiring manager swipes through candidate cards, requests a resume,
-// and chats — "Hinge, but for hiring."
+// and chats - "Hinge, but for hiring."
 export const RemotionRoot: React.FC = () => {
   return (
     <>
@@ -34,7 +34,7 @@ export const RemotionRoot: React.FC = () => {
         height={REEL_H}
       />
 
-      {/* Company Wall — bosses' companies scroll horizontally across the
+      {/* Company Wall - bosses' companies scroll horizontally across the
           frame in stacked marquee lanes. Vertical reel, 1080×1920, 30fps,
           8s seamless loop. */}
       <Composition
@@ -46,7 +46,7 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
       />
 
-      {/* "400 applications. Or 3 people." — job-board pain: a torrent of
+      {/* "400 applications. Or 3 people." - job-board pain: a torrent of
           faceless applications buries the frame, then three verified humans
           fan in. 720×900 to match the main reel. */}
       <Composition
@@ -58,9 +58,9 @@ export const RemotionRoot: React.FC = () => {
         height={FLOOD_H}
       />
 
-      {/* "Not looking. But open." — the passive-talent reel. One card flip
+      {/* "Not looking. But open." - the passive-talent reel. One card flip
           carries it: grey/closed → colour/open. Payoff is the real product
-          moment — pick a slot, swipe to invite, Google Meet sent. */}
+          moment - pick a slot, swipe to invite, Google Meet sent. */}
       <Composition
         id="NotLooking"
         component={NotLooking}
@@ -72,19 +72,19 @@ export const RemotionRoot: React.FC = () => {
 
       {/* ---- the product-loop set: one reel per loop, each with one claim ---- */}
 
-      {/* whole loop — "Cold to calendar in 41 seconds." */}
+      {/* whole loop - "Cold to calendar in 41 seconds." */}
       <Composition id="SpeedRun" component={SpeedRun} durationInFrames={SPEEDRUN_FRAMES} fps={30} width={720} height={900} />
 
-      {/* Talk loop — "Ask about the work. They answer." */}
+      {/* Talk loop - "Ask about the work. They answer." */}
       <Composition id="AskTheWork" component={AskTheWork} durationInFrames={ASK_FRAMES} fps={30} width={720} height={900} />
 
-      {/* Discover loop — "You don't search. The shortlist is the app." */}
+      {/* Discover loop - "You don't search. The shortlist is the app." */}
       <Composition id="Shortlist" component={Shortlist} durationInFrames={SHORTLIST_FRAMES} fps={30} width={720} height={900} />
 
-      {/* Meet loop — "Six emails, or one swipe." */}
+      {/* Meet loop - "Six emails, or one swipe." */}
       <Composition id="OneSwipe" component={OneSwipe} durationInFrames={ONESWIPE_FRAMES} fps={30} width={720} height={900} />
 
-      {/* no-middleman loop — "They replied because it was you asking." */}
+      {/* no-middleman loop - "They replied because it was you asking." */}
       <Composition id="BecauseItWasYou" component={BecauseItWasYou} durationInFrames={BECAUSE_FRAMES} fps={30} width={720} height={900} />
 
       {/* THE core loop: profiles -> reject -> resume -> chat -> meet -> accepted */}

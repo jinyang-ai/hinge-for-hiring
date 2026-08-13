@@ -1,5 +1,5 @@
 // ============================================================
-// The "Hinge for hiring" brand lockup — the opener AND the persistent
+// The "Hinge for hiring" brand lockup - the opener AND the persistent
 // headline. It rises up from below into the centre (hero beat), holds,
 // then travels up to settle at the top just as the candidate cards rise
 // in. Fades out as the hero card expands to full-frame.
@@ -15,7 +15,7 @@ const clampE = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const CENTER_DROP = 336;
 
 export const HingeLockup: React.FC<{ frame: number }> = ({ frame }) => {
-  // local clock — the lockup owns the "title" scene, which now follows the
+  // local clock - the lockup owns the "title" scene, which now follows the
   // cold-open hook, so everything is measured from title.start (not frame 0).
   const t = frame - SCENES.title.start;
   // entrance: rise up from below + fade in
@@ -70,7 +70,7 @@ export const HingeLockup: React.FC<{ frame: number }> = ({ frame }) => {
           opacity: p2,
         }}
       >
-        (For founders hiring in Bengaluru — no recruiters, no JDs)
+        (For founders hiring in Bengaluru - no recruiters, no JDs)
       </div>
     </div>
   );

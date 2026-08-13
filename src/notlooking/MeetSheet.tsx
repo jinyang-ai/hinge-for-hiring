@@ -1,10 +1,10 @@
 // ============================================================
-// The product moment — tal BOSS's "Pick a time" sheet.
+// The product moment - tal BOSS's "Pick a time" sheet.
 // Rebuilt from the live app: calendar tile, date + time wheels with a
 // selection band, and the SWIPE TO INVITE pill. The founder picks a slot and
 // swipes; a Google Meet goes out. No recruiter, no back-and-forth, no JD.
 // Laid out for a 720×900 frame (the app is far taller, so this is compressed
-// vertically — same anatomy, reel-legible sizes).
+// vertically - same anatomy, reel-legible sizes).
 // ============================================================
 import React from "react";
 import { Img, interpolate, Easing, staticFile } from "remotion";
@@ -52,7 +52,14 @@ const Wheel: React.FC<{ values: string[]; pick: number; offset: number }> = ({ v
   );
 };
 
-export const MeetSheet: React.FC<{ local: number; f: (ms: number) => number }> = ({ local, f }) => {
+export const MeetSheet: React.FC<{
+  local: number;
+  f: (ms: number) => number;
+  name?: string;
+  subtitle?: string;
+  face?: string;
+  facePos?: string;
+}> = ({ local, f, name = "Sanchit Tripathi", subtitle = "Software Engineer, CRED…", face, facePos = "50% 30%" }) => {
   // sheet rises
   const rise = interpolate(local, [0, f(420)], [1, 0], { ...clampE, easing: Easing.out(Easing.cubic) });
   // wheels spin then settle
@@ -74,12 +81,12 @@ export const MeetSheet: React.FC<{ local: number; f: (ms: number) => number }> =
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <div style={{ fontSize: 30, color: "#fff" }}>‹</div>
           <div style={{ position: "relative" }}>
-            <Img src={staticFile("reel/sanchit-face.jpg")} style={{ width: 54, height: 54, borderRadius: 999, objectFit: "cover", display: "block" }} />
+            <Img src={face ?? staticFile("reel/sanchit-face.jpg")} style={{ width: 54, height: 54, borderRadius: 999, objectFit: "cover", objectPosition: facePos, display: "block" }} />
             <div style={{ position: "absolute", right: 1, bottom: 1, width: 13, height: 13, borderRadius: 999, background: GREEN, border: "2px solid #fff" }} />
           </div>
           <div style={{ minWidth: 0 }}>
-            <div style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>Sanchit Tripathi</div>
-            <div style={{ fontSize: 15, color: "#efefef", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Software Engineer, CRED…</div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>{name}</div>
+            <div style={{ fontSize: 15, color: "#efefef", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{subtitle}</div>
           </div>
           <div style={{ marginLeft: "auto", fontSize: 24, color: "#fff" }}>•••</div>
         </div>
@@ -133,7 +140,7 @@ export const MeetSheet: React.FC<{ local: number; f: (ms: number) => number }> =
           <Wheel values={TIMES} pick={2} offset={spinT} />
         </div>
 
-        {/* what actually goes out — appears once the wheels settle */}
+        {/* what actually goes out - appears once the wheels settle */}
         <div
           style={{
             marginTop: 26,

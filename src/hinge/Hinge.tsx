@@ -1,5 +1,5 @@
 // ============================================================
-// Hinge for Hiring — root wrapper. The "Hinge for hiring" lockup opens the
+// Hinge for Hiring - root wrapper. The "Hinge for hiring" lockup opens the
 // reel (rises from below → settles at top), then the candidate stack rises in
 // under it. One global frame drives both. Playfair exposed as --font-playfair.
 // ============================================================
@@ -31,9 +31,9 @@ export const Hinge: React.FC = () => {
       {frame >= SCENES.chat.start - 8 && <Stack frame={frame} />}
       {/* the "Hinge for hiring" lockup: opener + persistent headline */}
       <HingeLockup frame={frame} />
-      {/* "It's a match!" payoff — pops above the chat, under the outro */}
+      {/* "It's a match!" payoff - pops above the chat, under the outro */}
       <Match frame={frame} />
-      {/* cold-open hook — a killer candidate swiped away before the title */}
+      {/* cold-open hook - a killer candidate swiped away before the title */}
       <Hook frame={frame} />
       {/* closing CTA: tal logo + store badges */}
       <Outro frame={frame} />

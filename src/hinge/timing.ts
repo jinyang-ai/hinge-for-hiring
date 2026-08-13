@@ -1,5 +1,5 @@
 // ============================================================
-// Tal Reel 2 — 4:5 cut (720×900 @30fps, ~10.3s). A tightened
+// Tal Reel 2 - 4:5 cut (720×900 @30fps, ~10.3s). A tightened
 // reflow of the 9:16 reel: poster (NO … cycling nouns) → boss
 // stack → short scroll to the work-prompt → chat → interview.
 // The card/profile/chat components are native-sized and scaled
@@ -16,7 +16,7 @@ export const SCENE_MS = {
   hook: 1100, // cold-open: a killer candidate flashes in + gets swiped → slams into the title
   title: 1400, // intro: "Hinge for hiring" rises from below → hero hold → settles to top
   chat: 8600, // browse+dismiss 3 candidates → Sanchit scroll → Reply → chat → resume
-  match: 1900, // "It's a match!" — boss + candidate avatars pop, confetti (Hinge payoff)
+  match: 1900, // "It's a match!" - boss + candidate avatars pop, confetti (Hinge payoff)
   outro: 2700, // CTA slate: tal logo + tagline + App Store / Google Play badges
 } as const;
 
@@ -37,19 +37,19 @@ export function buildTimeline(): { scenes: Record<SceneName, SceneSpan>; total: 
 export const { scenes: SCENES, total: TOTAL_FRAMES } = buildTimeline();
 
 // ============================================================
-// Scene 1 — poster ("NO" holds; the middlemen cycle and get flicked)
+// Scene 1 - poster ("NO" holds; the middlemen cycle and get flicked)
 // One word on a fixed baseline at a time; the block is centred in-frame
 // by Title.tsx off the measured SIZE (no hard-coded NO_TOP at 4:5).
 // ============================================================
-export const MEASURE = 640; // 720 − 40 left − 40 right — width the noun must fit
+export const MEASURE = 640; // 720 − 40 left − 40 right - width the noun must fit
 export const LEADING = 0.99;
 export const TRACKING = "0em";
 export const INK = "#131313"; // pure black vibrates at this size
 export const SIZE_CAP = 150; // guard against a short list blowing up
 export const SIZE_FALLBACK = 118; // if fitText won't behave before the font loads
-export const WORD_FROM = -112; // % — NO drops in out of its mask
+export const WORD_FROM = -112; // % - NO drops in out of its mask
 
-// per-noun dwell (ms) — fast rapid-fire; each holds a clear beat then flicks
+// per-noun dwell (ms) - fast rapid-fire; each holds a clear beat then flicks
 export const DWELL = [360, 340, 320, 300];
 export const S1 = {
   noIn: 300, // "NO" drops in
@@ -69,21 +69,21 @@ export function flickAtMs(i: number): number {
 export const revealAtMs = (i: number) => (i === 0 ? S1.firstNoun : flickAtMs(i - 1));
 
 // ============================================================
-// Scene 2 — "Chat with your next boss, directly"
+// Scene 2 - "Chat with your next boss, directly"
 // ============================================================
-// headline — "Hinge for hiring" serif lockup (see Stack.tsx). HEAD_SIZE/HEAD_LH
+// headline - "Hinge for hiring" serif lockup (see Stack.tsx). HEAD_SIZE/HEAD_LH
 // are legacy (unused by the current lockup) but kept for reference.
 export const HEAD_TOP = 24;
 export const HEAD_SIZE = 40;
 export const HEAD_LH = 0.92;
 
-// card geometry — native 393-wide face, scaled + positioned as one group.
+// card geometry - native 393-wide face, scaled + positioned as one group.
 // Native sizes are shared verbatim with the 9:16 reel (BossCard/HeroProfile),
 // so the card proportions match the reference exactly.
 export const CARD_W = 393; // native
-export const CARD_H = 500; // native VIEWPORT height — content scrolls, so shorter is fine
+export const CARD_H = 500; // native VIEWPORT height - content scrolls, so shorter is fine
 export const PHOTO_H = 292; // native photo height
-export const SHEET_TOP = 272; // native — sheet overlaps the photo by 20px
+export const SHEET_TOP = 272; // native - sheet overlaps the photo by 20px
 
 // floating (pre-expand) placement: card centred under the lockup. Now fills
 // ~83% of the frame width; each card is a scrollable profile, so the shorter
@@ -95,7 +95,7 @@ export const CARD_LEFT = Math.round((REEL_W - CARD_W_R) / 2); // centred (gutter
 export const CARD_TOP = 112; // just under the lockup (bottom ≈ 872)
 
 // expand target: card grows to FILL WIDTH and pins to the top, becoming a
-// 720-wide phone viewport (4:5 shows a window into it — unlike 9:16 which
+// 720-wide phone viewport (4:5 shows a window into it - unlike 9:16 which
 // filled height, since the card aspect ≈ the 9:16 frame aspect).
 export const CARD_SCALE_FULL = REEL_W / CARD_W; // 720/393 ≈ 1.832
 
@@ -110,17 +110,17 @@ export const S2 = {
   browseMs: 760, // per-card auto-scroll (browse) duration
   browsePx: 320, // per-card browse-scroll distance (native px)
   promote: 400, // behind-card spring forward
-  // hero (Sanchit) — scroll to the work prompt, request resume, chat
+  // hero (Sanchit) - scroll to the work prompt, request resume, chat
   expandAt: 4450, // Sanchit expands to full-width + scrolls to the work prompt
   expandMs: 950, // expand + scroll duration
   replyAt: 6000, // Reply press on the work-segment prompt
   chatOpenAt: 6180, // chat layer fades in
   chatOpenMs: 340, // chat fade-in duration
   flyMs: 460, // (reserved)
-  candReplyAt: 6220, // boss's "Request resume" bubble — in place as chat opens (right, dark)
+  candReplyAt: 6220, // boss's "Request resume" bubble - in place as chat opens (right, dark)
   m1At: 6800, // (unused in boss-POV)
   m2At: 7000, // Sanchit starts typing
-  inviteAt: 7600, // Sanchit replies with his resume (left, beige) — conversation ends here
+  inviteAt: 7600, // Sanchit replies with his resume (left, beige) - conversation ends here
   endHold: 2100, // hold on the resume reply
 } as const;
 
@@ -128,7 +128,7 @@ export const S2 = {
 // + body + Reply) in the expanded viewport before the Reply is pressed
 export const SCROLL_TARGET = 800;
 
-// press() dip length (frames @30) — button press feedback
+// press() dip length (frames @30) - button press feedback
 export const PRESS_FRAMES = 5;
 
 // ---- derived, in local frames from Scene 2 start ----

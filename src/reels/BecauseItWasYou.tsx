@@ -1,5 +1,5 @@
 // ============================================================
-// "They replied because it was you asking." — the no-middleman loop,
+// "They replied because it was you asking." - the no-middleman loop,
 // candidate side. Where AskTheWork is about what the message SAYS, this is
 // about who SENT it. On the candidate's lock screen the recruiter pings are
 // interchangeable frosted glass; the founder's lands as a solid white card
@@ -21,12 +21,12 @@ const PINGS: Ping[] = [
   { app: "LINKEDIN", from: "Hiring Partner", txt: "Quick chat about your profile?", ago: "6d ago" },
 ];
 
-const FOUNDER_MSG = "I'm the founder — 9 of us, building payments infra. Loved the 0→1 you did on CRED's rewards engine. 20 minutes this week?";
+const FOUNDER_MSG = "I'm the founder. 9 of us, building payments infra. Loved the 0→1 you did on CRED's rewards engine. 20 minutes this week?";
 
 const CHAT: Msg[] = [{ side: "in", at: fr(400), text: FOUNDER_MSG, time: "8:31 PM" }];
 const CHAT_REPLIED: Msg[] = [
   { side: "in", at: 0, text: FOUNDER_MSG, time: "8:31 PM" },
-  { side: "out", at: fr(700), typingUntil: fr(1700), text: "Not looking, honestly. But that sounds interesting — Friday evening?", time: "8:42 PM" },
+  { side: "out", at: fr(700), typingUntil: fr(1700), text: "Not looking, honestly. But that sounds interesting. Friday evening?", time: "8:42 PM" },
 ];
 
 export const BecauseItWasYou: React.FC = () => {

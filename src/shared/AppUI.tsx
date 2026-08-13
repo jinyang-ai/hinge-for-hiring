@@ -1,10 +1,10 @@
 // ============================================================
 // Real tal BOSS app surfaces, factored out so every reel shows the actual
 // product rather than a mockup of it:
-//   ActionBar — the floating ✕ / Request resume / Reply bar from the deck
-//   TalChat   — the chat screen (header, Setup Meet / Resume requested chips,
+//   ActionBar - the floating ✕ / Request resume / Reply bar from the deck
+//   TalChat   - the chat screen (header, Setup Meet / Resume requested chips,
 //               big legible bubbles, composer) generalised over a message list
-// Type sizes match the app screens exactly — they are large on purpose so the
+// Type sizes match the app screens exactly - they are large on purpose so the
 // copy is readable at reel speed.
 // ============================================================
 import React from "react";
@@ -53,9 +53,9 @@ export type Msg = {
   meet?: { when: string; accepted?: boolean }; // the Google Meet invite card
 };
 
-const Avatar: React.FC<{ size: number; src?: string }> = ({ size, src }) => (
+const Avatar: React.FC<{ size: number; src?: string; pos?: string }> = ({ size, src, pos = "50% 30%" }) => (
   <div style={{ width: size, height: size, borderRadius: 999, overflow: "hidden", flex: "0 0 auto", background: "#e9edf3" }}>
-    <Img src={src ?? hero.facePhoto} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 30%", display: "block" }} />
+    <Img src={src ?? hero.facePhoto} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: pos, display: "block" }} />
   </div>
 );
 
@@ -64,9 +64,9 @@ const rise = (lf: number, at: number, px = 18): React.CSSProperties => {
   return { opacity: p, transform: `translateY(${(1 - p) * px}px)` };
 };
 
-const Typing: React.FC<{ lf: number }> = ({ lf }) => (
+const Typing: React.FC<{ lf: number; face?: string; facePos?: string }> = ({ lf, face, facePos }) => (
   <div style={{ display: "flex", alignItems: "flex-end", gap: 12, alignSelf: "flex-start" }}>
-    <Avatar size={52} />
+    <Avatar size={52} src={face} pos={facePos} />
     <div style={{ background: REPLY_BG, borderRadius: "8px 26px 26px 26px", padding: "21px 24px", display: "flex", gap: 8 }}>
       {[0, 1, 2].map((i) => (
         <span
@@ -85,14 +85,14 @@ const Typing: React.FC<{ lf: number }> = ({ lf }) => (
   </div>
 );
 
-const ResumeCard: React.FC = () => (
+const ResumeCard: React.FC<{ name: string }> = ({ name }) => (
   <div style={{ width: 335 }}>
     <div style={{ background: "#fff", borderRadius: "16px 16px 0 0", padding: "17px 20px 11px", overflow: "hidden", height: 136 }}>
       <div style={{ fontFamily: "Georgia, serif", fontSize: 17, fontWeight: 700, letterSpacing: 0.8, textAlign: "center", color: "#1c1c1e" }}>
-        SANCHIT TRIPATHI
+        {name.toUpperCase()}
       </div>
       <div style={{ fontSize: 9, color: "#6c6c70", textAlign: "center", marginTop: 3 }}>
-        +91 98450 12345 · sanchit@mail.com · linkedin.com/in/sanchit
+        +91 98450 12345 · {name.split(" ")[0].toLowerCase()}@mail.com · linkedin.com/in/{name.split(" ")[0].toLowerCase()}
       </div>
       {["Summary", "Technical Skills", "Experience"].map((h) => (
         <div key={h}>
@@ -103,14 +103,14 @@ const ResumeCard: React.FC = () => (
       ))}
     </div>
     <div style={{ background: "#e7ddcb", borderRadius: "0 0 16px 16px", padding: "11px 16px" }}>
-      <div style={{ fontSize: 18, fontWeight: 700, color: INK }}>Sanchit_Resume.pdf</div>
+      <div style={{ fontSize: 18, fontWeight: 700, color: INK }}>{name.split(" ")[0]}_Resume.pdf</div>
       <div style={{ fontSize: 13.5, color: "var(--surface-60)" }}>PDF</div>
     </div>
   </div>
 );
 
-// the Google Meet invite as it sits in the thread — and the moment it is accepted
-const MeetCard: React.FC<{ when: string; accepted?: boolean }> = ({ when, accepted }) => (
+// the Google Meet invite as it sits in the thread - and the moment it is accepted
+const MeetCard: React.FC<{ when: string; accepted?: boolean; who: string }> = ({ when, accepted, who }) => (
   <div style={{ width: 350, background: "#fff", borderRadius: 16, border: "1px solid #e6e2de", padding: "16px 18px" }}>
     <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
       <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden style={{ flex: "0 0 auto" }}>
@@ -127,7 +127,7 @@ const MeetCard: React.FC<{ when: string; accepted?: boolean }> = ({ when, accept
     {accepted && (
       <div style={{ marginTop: 14, paddingTop: 13, borderTop: "1px solid #f0ece7", display: "flex", alignItems: "center", gap: 9 }}>
         <span style={{ width: 24, height: 24, borderRadius: 999, background: "#13bf69", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700 }}>✓</span>
-        <span style={{ fontSize: 18, fontWeight: 700, color: "#0f9d58" }}>Sanchit accepted</span>
+        <span style={{ fontSize: 18, fontWeight: 700, color: "#0f9d58" }}>{who} accepted</span>
       </div>
     )}
   </div>
@@ -140,14 +140,15 @@ export const TalChat: React.FC<{
   subtitle?: string;
   face?: string;
   chips?: [string, string];
-}> = ({ lf, msgs, name = hero.name, subtitle = hero.chatSubtitle, face, chips = ["Setup Meet", "Resume requested"] }) => (
+  facePos?: string;
+}> = ({ lf, msgs, name = hero.name, subtitle = hero.chatSubtitle, face, facePos, chips = ["Setup Meet", "Resume requested"] }) => (
   <div style={{ position: "absolute", inset: 0, background: "#fff", display: "flex", flexDirection: "column" }}>
     {/* header */}
     <div style={{ display: "flex", alignItems: "center", gap: 18, padding: "40px 28px 18px", borderBottom: "1px solid #efefef" }}>
       <span style={{ color: INK, display: "flex" }}>
         <svg width={34} height={34} viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </span>
-      <Avatar size={70} src={face} />
+      <Avatar size={70} src={face} pos={facePos} />
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.01em", color: INK }}>{name}</div>
         <div style={{ fontSize: 18, color: SUB, marginTop: 2 }}>{subtitle}</div>
@@ -176,7 +177,7 @@ export const TalChat: React.FC<{
       <div style={{ alignSelf: "center", fontSize: 22, fontWeight: 700, color: INK }}>Today</div>
       {msgs.map((m, i) => {
         if (lf < m.at) return null;
-        if (m.typingUntil && lf < m.typingUntil) return <Typing key={i} lf={lf} />;
+        if (m.typingUntil && lf < m.typingUntil) return <Typing key={i} lf={lf} face={face} facePos={facePos} />;
         if (m.typingUntil && lf >= m.typingUntil && !m.text && !m.resume) return null;
         const out = m.side === "out";
         return (
@@ -191,7 +192,7 @@ export const TalChat: React.FC<{
               ...rise(lf, m.typingUntil ?? m.at, 22),
             }}
           >
-            {!out && <Avatar size={52} src={face} />}
+            {!out && <Avatar size={52} src={face} pos={facePos} />}
             <div
               style={{
                 background: out ? REQ_BG : REPLY_BG,
@@ -200,10 +201,10 @@ export const TalChat: React.FC<{
               }}
             >
               {m.meet ? (
-                <MeetCard when={m.meet.when} accepted={m.meet.accepted} />
+                <MeetCard when={m.meet.when} accepted={m.meet.accepted} who={name.split(" ")[0]} />
               ) : m.resume ? (
                 <>
-                  <ResumeCard />
+                  <ResumeCard name={name} />
                   {m.text && <div style={{ fontSize: 19, color: INK, padding: "12px 6px 3px" }}>{m.text}</div>}
                 </>
               ) : (

@@ -1,10 +1,10 @@
 // ============================================================
-// Tal Reel 2 — inline SVG icons. currentColor / stroke so the CSS
+// Tal Reel 2 - inline SVG icons. currentColor / stroke so the CSS
 // tokens drive them. 24×24 nominal unless noted.
 // ============================================================
 import React from "react";
 
-// Verified seal (filled badge + check) — sits after the name, ~15px.
+// Verified seal (filled badge + check) - sits after the name, ~15px.
 export const Verified: React.FC<{ size?: number }> = ({ size = 15 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
     <path
@@ -15,7 +15,7 @@ export const Verified: React.FC<{ size?: number }> = ({ size = 15 }) => (
   </svg>
 );
 
-// Location pin — thin outline, ~12px.
+// Location pin - thin outline, ~12px.
 export const Pin: React.FC<{ size?: number }> = ({ size = 12 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
     <path
@@ -28,7 +28,7 @@ export const Pin: React.FC<{ size?: number }> = ({ size = 12 }) => (
   </svg>
 );
 
-// Super Chat — a star inside a rounded square.
+// Super Chat - a star inside a rounded square.
 export const SuperChat: React.FC<{ size?: number }> = ({ size = 24 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
     <rect x="3" y="3" width="18" height="18" rx="5.5" stroke="currentColor" strokeWidth="1.8" />
@@ -39,7 +39,7 @@ export const SuperChat: React.FC<{ size?: number }> = ({ size = 24 }) => (
   </svg>
 );
 
-// Start DM — speech bubble.
+// Start DM - speech bubble.
 export const DM: React.FC<{ size?: number }> = ({ size = 24 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
     <path
@@ -58,7 +58,7 @@ export const Cross: React.FC<{ size?: number }> = ({ size = 22 }) => (
   </svg>
 );
 
-// waving hand — small emoji used in the "Hiring" row.
+// waving hand - small emoji used in the "Hiring" row.
 export const Wave: React.FC<{ size?: number }> = ({ size = 15 }) => (
   <span style={{ fontSize: size, lineHeight: 1 }} aria-hidden>
     👋

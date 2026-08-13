@@ -1,5 +1,5 @@
 // ============================================================
-// Scene 2 — a candidate as a rich, scrollable profile (BOSS-POV). Data-driven,
+// Scene 2 - a candidate as a rich, scrollable profile (BOSS-POV). Data-driven,
 // so EVERY candidate (not just the hero) gets the full treatment: photo → sheet
 // (name/role/stats/Top-1%) → work experience → top skills → "what am I working
 // on" → coding stat. The reel scrolls through each one; the hero's scroll lands
@@ -83,7 +83,7 @@ const CodeStat: React.FC<{ c: Candidate }> = ({ c }) => (
   </>
 );
 
-// the work-segment prompt — its Reply is the one the boss taps (hero only)
+// the work-segment prompt - its Reply is the one the boss taps (hero only)
 const WorkSegment: React.FC<{ c: Candidate; press: number }> = ({ c, press }) => (
   <div style={{ textAlign: "left" }}>
     <div style={{ fontSize: 30, lineHeight: 1 }}>📖</div>

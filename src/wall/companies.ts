@@ -1,5 +1,5 @@
 // ============================================================
-// Company wall data — unique bosses who browsed the candidate
+// Company wall data - unique bosses who browsed the candidate
 // deck (last 30d). Source: Mixpanel project 4040199 (Tal Boss),
 // app_candidate_profiles_screen_viewed, unique users by
 // `userCurrentCompany`. Internal + non-company values removed.
@@ -7,7 +7,7 @@
 // ============================================================
 export type Company = { name: string; hot?: boolean };
 
-// Curated purple-highlight set — the instantly-recognisable names.
+// Curated purple-highlight set - the instantly-recognisable names.
 // Spread across the list so every scrolling lane gets a pop of accent.
 const HIGHLIGHT = new Set([
   "LinkedIn", "Google", "Amazon", "Uber", "Stripe", "NVIDIA", "Razorpay",
@@ -27,7 +27,7 @@ const NAMES: string[] = [
   "smallcase", "Lenskart", "Rippling", "Leap", "Bureau", "Keka HR",
   "PubMatic", "Deliveroo", "Walmart Global Tech", "Booking Holdings",
   "GoTo Group", "Tekion Corp", "Bentley Systems", "PlatinumRx",
-  // long tail (1 boss each) — well-known names for density
+  // long tail (1 boss each) - well-known names for density
   "Databricks", "Cloudflare", "Revolut", "eBay", "Twilio", "Duolingo",
   "xAI", "Ather Energy", "Blinkit", "Porter", "Ninjacart", "Navi",
   "Purplle", "ClearTax", "Pixxel", "Infra.Market",

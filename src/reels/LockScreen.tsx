@@ -2,7 +2,7 @@
 // The candidate's lock screen. Recruiter pings arrive as translucent,
 // interchangeable frosted cards and die there; the tal BOSS message lands as
 // a solid white card with a real face on it. The contrast is carried by the
-// surface itself — dead glass vs a real person — before a word is read.
+// surface itself - dead glass vs a real person - before a word is read.
 // ============================================================
 import React from "react";
 import { Img, staticFile } from "remotion";

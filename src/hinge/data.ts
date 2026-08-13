@@ -1,7 +1,7 @@
 import { staticFile } from "remotion";
 
 // ============================================================
-// Tal Reel — 4:5 cut, BOSS-POV data. The hiring manager swipes through
+// Tal Reel - 4:5 cut, BOSS-POV data. The hiring manager swipes through
 // CANDIDATE cards; each is a rich, scrollable profile (experience, skills,
 // "what I'm working on", coding stat). Three are browsed + dismissed, Sanchit
 // settles and gets his resume requested. Order is [...dismissed, hero].
@@ -29,10 +29,10 @@ export type Candidate = {
   working: { q: string; a: string }; // "what am I working on" segment
   code: Code; // Codeforces / GitHub depth
   chatSubtitle: string;
-  intent?: string; // startup-fit signal — e.g. "Open to equity · joins in 30d"
+  intent?: string; // startup-fit signal - e.g. "Open to equity · joins in 30d"
 };
 
-// Hero candidate — Sanchit settles and gets his resume requested.
+// Hero candidate - Sanchit settles and gets his resume requested.
 export const hero: Candidate = {
   id: "sanchit",
   name: "Sanchit Tripathi",
@@ -53,7 +53,7 @@ export const hero: Candidate = {
   skills: ["Java", "Go", "UPI Rails", "Redis", "Kafka", "Postgres"],
   working: {
     q: "What am I currently working on at CRED?",
-    a: "Took CRED's rewards engine from 0→1 on UPI rails — sub-100ms payouts for 12M members.",
+    a: "Took CRED's rewards engine from 0→1 on UPI rails. Sub-100ms payouts for 12M members.",
   },
   code: { kind: "codeforces", handle: "@sanchittripathi", a: "Rating 1,259", b: "Pupil · 340 solved" },
   chatSubtitle: "Software Engineer · Bengaluru",
@@ -80,7 +80,7 @@ export const dismissed: Candidate[] = [
     ],
     moreXp: 1,
     skills: ["Python", "PyTorch", "Recsys", "Spark", "Airflow"],
-    working: { q: "What am I currently working on at Groww?", a: "Built Groww's discovery feed from scratch — 4M rankings/day with a team of 3." },
+    working: { q: "What am I currently working on at Groww?", a: "Built Groww's discovery feed from scratch. 4M rankings a day with a team of 3." },
     code: { kind: "github", handle: "@ananya-s", a: "512 contributions", b: "recsys-serving · 1.2k ★" },
     chatSubtitle: "AI Engineer · Bengaluru",
     intent: "Wants to build 0→1 · available now",
@@ -103,7 +103,7 @@ export const dismissed: Candidate[] = [
     ],
     moreXp: 1,
     skills: ["Go", "Kafka", "PostgreSQL", "Kubernetes", "gRPC"],
-    working: { q: "What am I currently working on at Meesho?", a: "Owned Meesho's order APIs end-to-end — halved p99 latency during festive peak." },
+    working: { q: "What am I currently working on at Meesho?", a: "Owned Meesho's order APIs end-to-end. Halved p99 latency during festive peak." },
     code: { kind: "github", handle: "@priyam", a: "689 contributions", b: "order-gateway · 840 ★" },
     chatSubtitle: "Backend Engineer · Bengaluru",
     intent: "Craving a small team · joins in 30d",
@@ -126,7 +126,7 @@ export const dismissed: Candidate[] = [
     ],
     moreXp: 2,
     skills: ["Python", "Ray", "Kafka", "ClickHouse", "Feast"],
-    working: { q: "What am I currently working on at Zerodha?", a: "Shipped Zerodha's market-depth ranking solo — 40M events a day, 0→1." },
+    working: { q: "What am I currently working on at Zerodha?", a: "Shipped Zerodha's market-depth ranking solo. 40M events a day, 0→1." },
     code: { kind: "codeforces", handle: "@rohank", a: "Rating 1,712", b: "Expert · 610 solved" },
     chatSubtitle: "AI Engineer · Bengaluru",
     intent: "Ex-seed startup · wants 0→1 again",
@@ -135,7 +135,7 @@ export const dismissed: Candidate[] = [
 
 // Randomized dismissed order, with a MALE candidate guaranteed first. Uses a
 // seeded shuffle (not Math.random) so every Remotion render worker agrees on the
-// same order — otherwise frames would disagree. Bump SHUFFLE_SEED to re-roll.
+// same order - otherwise frames would disagree. Bump SHUFFLE_SEED to re-roll.
 export const SHUFFLE_SEED = 3;
 const MALE_IDS = new Set(["d3", "sanchit"]); // Rohan + Sanchit are the men
 function seededShuffle<T>(arr: T[], seed: number): T[] {
@@ -155,7 +155,7 @@ if (firstMale > 0) [shuffled[0], shuffled[firstMale]] = [shuffled[firstMale], sh
 // Scene-2 stack order: shuffled dismissed (male first) → the hero settles last.
 export const stack: Candidate[] = [...shuffled, hero];
 
-// Scene 4 chat — the boss requested the resume on the profile; the chat opens
+// Scene 4 chat - the boss requested the resume on the profile; the chat opens
 // with that request in place, then Sanchit replies with his resume.
 export const chat = {
   requestEmoji: "📋",

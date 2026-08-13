@@ -1,9 +1,9 @@
 // ============================================================
-// "Ask about the work. They answer." — the Talk loop.
+// "Ask about the work. They answer." - the Talk loop.
 // Claim: on tal BOSS the first message is already a real conversation, which
 // is exactly why it gets answered.
-// Opens straight on the product — the candidate's own "what am I working on"
-// prompt — rather than on a screen of recruiter spam. The contrast with
+// Opens straight on the product - the candidate's own "what am I working on"
+// prompt - rather than on a screen of recruiter spam. The contrast with
 // "are you open to opportunities?" is carried by one line at the end, which
 // lands harder than three grey boxes and keeps the reel inside the app.
 // ============================================================
@@ -22,7 +22,7 @@ const HERO: Candidate = { ...hero, intent: "Open to meet · this week" };
 
 const CHAT: Msg[] = [
   { side: "out", at: fr(600), text: "How did you get payouts under 100ms on UPI rails? We're at 400 with 9 people.", time: "9:12 PM" },
-  { side: "in", at: fr(2200), typingUntil: fr(3400), text: "Sharded the ledger and moved settlement async — the payout path never touches the DB.", time: "9:23 PM" },
+  { side: "in", at: fr(2200), typingUntil: fr(3400), text: "Sharded the ledger and moved settlement async. The payout path never touches the DB.", time: "9:23 PM" },
 ];
 
 export const AskTheWork: React.FC = () => {

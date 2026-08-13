@@ -1,5 +1,5 @@
 // ============================================================
-// "400 applications. Or 3 people." — the job-board pain reel.
+// "400 applications. Or 3 people." - the job-board pain reel.
 // A torrent of anonymous applications buries the frame, freezes on the
 // gut-punch ("0 you'd actually hire"), sweeps away, and three verified
 // humans fan in. 720×900 @30fps to match the main reel.
@@ -11,7 +11,7 @@ export const REEL_H = 900;
 export const f = (ms: number) => Math.round((ms * FPS) / 1000);
 
 export const SCENE_MS = {
-  post: 2300, // you post ONE role on a job board — title types in, "Post job" pressed
+  post: 2300, // you post ONE role on a job board - title types in, "Post job" pressed
   flood: 3900, // "You posted one job." → applications avalanche in, counter spins
   gut: 1600, // freeze on the pile: "412 applications. ZERO you'd hire."
   sweep: 560, // the whole pile drops away

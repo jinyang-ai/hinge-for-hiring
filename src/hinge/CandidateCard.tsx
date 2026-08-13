@@ -1,5 +1,5 @@
 // ============================================================
-// Scene 2 — the candidate card face (BOSS-POV). Native 393-wide. Photo
+// Scene 2 - the candidate card face (BOSS-POV). Native 393-wide. Photo
 // (~54%) + white sheet: name → role → Last seen · CTC · Location →
 // "Top 1%" badge (hero only) → a "📖 what I'm working on" teaser.
 // Photo + sheet are exported so the hero reuses them inside a scrollable
@@ -18,7 +18,7 @@ const Hairline: React.FC<{ m?: string }> = ({ m = "9px 0" }) => (
   <div style={{ height: 1, background: "var(--surface-25)", margin: m }} />
 );
 
-// photo image (no wrapper — parent positions/clips it)
+// photo image (no wrapper - parent positions/clips it)
 export const PhotoInner: React.FC<{ c: Candidate }> = ({ c }) => (
   <img
     src={c.heroPhoto}
@@ -35,7 +35,7 @@ export const PhotoInner: React.FC<{ c: Candidate }> = ({ c }) => (
   />
 );
 
-// Last seen · CTC · Location — 3-up, bordered top & bottom.
+// Last seen · CTC · Location - 3-up, bordered top & bottom.
 const StatsRow: React.FC<{ c: Candidate }> = ({ c }) => (
   <div style={{ display: "flex", marginTop: 9, borderTop: "1px solid var(--surface-25)", borderBottom: "1px solid var(--surface-25)" }}>
     {[

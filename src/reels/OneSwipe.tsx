@@ -1,5 +1,5 @@
 // ============================================================
-// "Six emails, or one swipe." — the Meet loop.
+// "Six emails, or one swipe." - the Meet loop.
 // Claim: booking the interview is one gesture, not four days of email.
 // thread: a Gmail scheduling thread stacks up while a day counter climbs →
 // swipe: the tal BOSS sheet, picked and sent → payoff: 9 seconds → slate.
@@ -34,7 +34,7 @@ export const OneSwipe: React.FC = () => {
       {frame < S.swipe.start && (
         <AbsoluteFill style={{ opacity: threadOut }}>
           <GmailThread local={tl} at={mailAt} />
-          {/* days elapsed — overlaid on the thread */}
+          {/* days elapsed - overlaid on the thread */}
           <div
             style={{
               position: "absolute",

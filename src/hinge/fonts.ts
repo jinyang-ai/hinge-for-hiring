@@ -1,4 +1,4 @@
-// Obviously Narrow Bold — display face for the poster + headline.
+// Obviously Narrow Bold - display face for the poster + headline.
 import { loadFont } from "@remotion/fonts";
 import { staticFile } from "remotion";
 

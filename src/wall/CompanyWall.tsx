@@ -25,7 +25,7 @@ export const CTA = "Download the app";
 export const CompanyWall: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps, width } = useVideoConfig();
-  const u = width / 1080; // scale unit — template works at any width
+  const u = width / 1080; // scale unit - template works at any width
 
   const lanes = toLanes(COMPANIES, LANES);
 
@@ -98,7 +98,7 @@ export const CompanyWall: React.FC = () => {
         padding: `${74 * u}px 0 ${88 * u}px`,
       }}
     >
-      {/* logo — tal BOSS lockup (cream, for the ink canvas) */}
+      {/* logo - tal BOSS lockup (cream, for the ink canvas) */}
       <Img
         src={staticFile("reel/tal-boss-wordmark-cream.png")}
         style={{
@@ -124,7 +124,7 @@ export const CompanyWall: React.FC = () => {
         {EYEBROW}
       </div>
 
-      {/* the scrolling wall — fills the middle */}
+      {/* the scrolling wall - fills the middle */}
       <div
         style={{
           flex: 1,

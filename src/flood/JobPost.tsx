@@ -1,7 +1,7 @@
 // ============================================================
-// Scene 0 — the cause. A founder posts one role on a generic professional
+// Scene 0 - the cause. A founder posts one role on a generic professional
 // job board: title types in, location fills, cursor hits "Post job".
-// Deliberately NOT LinkedIn's actual mark/wordmark — a competitor ad that
+// Deliberately NOT LinkedIn's actual mark/wordmark - a competitor ad that
 // reproduces a real platform's branding is a trademark problem, so this is a
 // recognisable-but-generic composer (corporate blue, same anatomy).
 // ============================================================

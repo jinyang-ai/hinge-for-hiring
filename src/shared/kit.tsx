@@ -1,7 +1,7 @@
 // ============================================================
 // Shared furniture for the tal BOSS reel set. Every reel is 720×900 @30fps
 // on white, uses the Obviously display face for headlines, and closes on the
-// same tal BOSS slate — so it all lives here rather than in five copies.
+// same tal BOSS slate - so it all lives here rather than in five copies.
 // ============================================================
 import React from "react";
 import { AbsoluteFill, Img, Easing, interpolate, spring, staticFile } from "remotion";
@@ -27,7 +27,7 @@ export const lerp = (frame: number, i: number[], o: number[], easing = Easing.ou
 
 const inter = loadInter("normal", { weights: ["400", "500", "600", "700"], ignoreTooManyRequestsWarning: true });
 
-// display type — the reel headline face
+// display type - the reel headline face
 export const disp = (size: number, extra: React.CSSProperties = {}): React.CSSProperties => ({
   fontFamily: `${OBVIOUSLY}, sans-serif`,
   fontWeight: 700,
@@ -111,7 +111,7 @@ export const Slate: React.FC<{ local: number; total: number; frame: number; line
 
 // ---- compact closing slate ----
 // Same furniture as Slate (lockup → tagline → store badges) but on a tight
-// clock, for the short loop reels. The badges are the call to action — never
+// clock, for the short loop reels. The badges are the call to action - never
 // ship a cut without them.
 export const CompactSlate: React.FC<{ local: number }> = ({ local }) => {
   const pop = spring({ frame: Math.max(0, local), fps: FPS, config: { damping: 13, stiffness: 150, mass: 0.85 } });

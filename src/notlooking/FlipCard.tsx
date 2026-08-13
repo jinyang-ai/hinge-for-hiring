@@ -1,7 +1,7 @@
 // ============================================================
 // The mechanic. One card, two faces:
-//   front — greyscale, "Not open to offers", a NOT LOOKING stamp
-//   back  — full colour, a green "Open to meet" pill
+//   front - greyscale, "Not open to offers", a NOT LOOKING stamp
+//   back  - full colour, a green "Open to meet" pill
 // rotateY carries it from one to the other; backface-visibility means the
 // colour returns exactly at the 90° turn, so the flip IS the reveal.
 // ============================================================
@@ -61,7 +61,7 @@ export const FlipCard: React.FC<{
         transform: `rotateY(${turn}deg)`,
       }}
     >
-      {/* closed face — drained of colour */}
+      {/* closed face - drained of colour */}
       <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}>
         <div style={{ filter: "grayscale(1) contrast(0.9) brightness(1.06)" }}>
           <CandidateCard c={closed} />
@@ -73,7 +73,7 @@ export const FlipCard: React.FC<{
         )}
       </div>
 
-      {/* open face — full colour */}
+      {/* open face - full colour */}
       <div
         style={{
           position: "absolute",

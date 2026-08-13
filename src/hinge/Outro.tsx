@@ -1,5 +1,5 @@
 // ============================================================
-// Outro — CTA slate. Cross-dissolves in from the chat: the "tal" logo pops,
+// Outro - CTA slate. Cross-dissolves in from the chat: the "tal" logo pops,
 // a tagline fades up, then the App Store / Google Play badges. Content fades
 // back to white at the very end so the reel loops cleanly into the intro.
 // ============================================================
