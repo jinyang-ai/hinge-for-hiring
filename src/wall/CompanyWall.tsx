@@ -10,6 +10,7 @@ import {
 import { fontFamily } from "@remotion/google-fonts/Archivo";
 import { Marquee } from "./Marquee";
 import { COMPANIES, toLanes, type Company } from "./companies";
+import { type Segment } from "./segments";
 
 // palette (matches the static company-wall creative)
 const INK = "#262220";
@@ -22,12 +23,22 @@ export const EYEBROW = "Bosses already hiring on tal";
 export const SUB = "Your next hire is being interviewed by one of them right now.";
 export const CTA = "Download the app";
 
-export const CompanyWall: React.FC = () => {
+// Driven by an optional segment: with none it is the general wall, with one
+// it becomes that peer group's cut (headline, company set, highlights, sub).
+export const CompanyWall: React.FC<{ segment?: Segment }> = ({ segment }) => {
   const frame = useCurrentFrame();
   const { fps, width } = useVideoConfig();
   const u = width / 1080; // scale unit - template works at any width
 
-  const lanes = toLanes(COMPANIES, LANES);
+  const eyebrow = segment
+    ? `${segment.count.toLocaleString("en-IN")} ${segment.noun} in Bengaluru`
+    : EYEBROW;
+  const sub = segment ? segment.sub : SUB;
+  const items: Company[] = segment
+    ? segment.companies.map((name) => ({ name, hot: segment.highlight.includes(name) }))
+    : COMPANIES;
+
+  const lanes = toLanes(items, LANES);
 
   // gentle staggered entrance for the framing chrome
   const appear = (delay: number) => {
@@ -79,8 +90,8 @@ export const CompanyWall: React.FC = () => {
   );
 
   const logo = appear(0);
-  const eyebrow = appear(3);
-  const sub = appear(7);
+  const eyebrowIn = appear(3);
+  const subIn = appear(7);
   const cta = appear(11);
 
   const edgeMask =
@@ -117,11 +128,11 @@ export const CompanyWall: React.FC = () => {
           fontWeight: 600,
           letterSpacing: "-0.01em",
           marginTop: 46 * u,
-          opacity: eyebrow.s * 0.6,
-          transform: `translateY(${eyebrow.ty}px)`,
+          opacity: eyebrowIn.s * 0.6,
+          transform: `translateY(${eyebrowIn.ty}px)`,
         }}
       >
-        {EYEBROW}
+        {eyebrow}
       </div>
 
       {/* the scrolling wall - fills the middle */}
@@ -149,11 +160,11 @@ export const CompanyWall: React.FC = () => {
           lineHeight: 1.3,
           textAlign: "center",
           maxWidth: 760 * u,
-          opacity: sub.s * 0.82,
-          transform: `translateY(${sub.ty}px)`,
+          opacity: subIn.s * 0.82,
+          transform: `translateY(${subIn.ty}px)`,
         }}
       >
-        {SUB}
+        {sub}
       </div>
 
       {/* CTA */}

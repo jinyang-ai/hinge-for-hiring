@@ -18,6 +18,7 @@ import {
   DeckLoop, DECK_TOTAL,
 } from "./reels/Loops";
 import { CoreLoop, TOTAL as CORE_TOTAL } from "./reels/CoreLoop";
+import { SEGMENTS } from "./wall/segments";
 
 // Hinge for Hiring - boss-POV Tal reel (720×900, 30fps, ~10.3s).
 // The hiring manager swipes through candidate cards, requests a resume,
@@ -89,6 +90,22 @@ export const RemotionRoot: React.FC = () => {
 
       {/* THE core loop: profiles -> reject -> resume -> chat -> meet -> accepted */}
       <Composition id="CoreLoop" component={CoreLoop} durationInFrames={CORE_TOTAL} fps={30} width={720} height={900} />
+
+      {/* ---- company wall, one cut per peer group ---- */}
+      {/* Generated from wall/segments.ts, so a new variation is a config
+          entry rather than a new composition. */}
+      {SEGMENTS.map((seg) => (
+        <Composition
+          key={seg.id}
+          id={`Wall-${seg.id}`}
+          component={CompanyWall}
+          durationInFrames={240}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={{ segment: seg }}
+        />
+      ))}
 
       {/* ---- the simple set: one loop each, under 10s, GIF-able ---- */}
       <Composition id="LoopResume" component={ResumeLoop} durationInFrames={RESUME_TOTAL} fps={30} width={720} height={900} />
