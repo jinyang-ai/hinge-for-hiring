@@ -21,6 +21,8 @@ import { CoreLoop, TOTAL as CORE_TOTAL } from "./reels/CoreLoop";
 import { OnTap, TAP_TOTAL, GoodOnes, GOOD_TOTAL, BangaloreHires, BLR_TOTAL } from "./reels/Message";
 import { Portraits, TOTAL as PORTRAITS_TOTAL } from "./reels/Portraits";
 import { Mirror, MIRROR_TOTAL, Inversion, INVERSION_TOTAL } from "./reels/Hooks";
+import { Gravity, GRAVITY_TOTAL, GRAVITY_FPS } from "./reels/Gravity";
+import { COHORTS } from "./reels/cohorts";
 import { SEGMENTS } from "./wall/segments";
 
 // Hinge for Hiring - boss-POV Tal reel (720×900, 30fps, ~10.3s).
@@ -116,6 +118,21 @@ export const RemotionRoot: React.FC = () => {
       {/* ---- performance creatives: frame one is the ad ---- */}
       <Composition id="Mirror" component={Mirror} durationInFrames={MIRROR_TOTAL} fps={30} width={720} height={900} />
       <Composition id="Inversion" component={Inversion} durationInFrames={INVERSION_TOTAL} fps={30} width={720} height={900} />
+
+      {/* ---- Gravity: the coolest people in Bangalore, spiralling into the
+          mark. One cut per cohort, all driven from reels/cohorts.ts. ---- */}
+      {COHORTS.map((c) => (
+        <Composition
+          key={c.id}
+          id={`Gravity-${c.id}`}
+          component={Gravity}
+          durationInFrames={GRAVITY_TOTAL}
+          fps={GRAVITY_FPS}
+          width={720}
+          height={900}
+          defaultProps={{ cohort: c }}
+        />
+      ))}
 
       {/* ---- the message set: one line each, on-brand, under 10s ---- */}
       <Composition id="OnTap" component={OnTap} durationInFrames={TAP_TOTAL} fps={30} width={720} height={900} />
