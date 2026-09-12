@@ -18,6 +18,7 @@ import {
   DeckLoop, DECK_TOTAL,
 } from "./reels/Loops";
 import { CoreLoop, TOTAL as CORE_TOTAL } from "./reels/CoreLoop";
+import { OnTap, TAP_TOTAL, GoodOnes, GOOD_TOTAL, BangaloreHires, BLR_TOTAL } from "./reels/Message";
 import { SEGMENTS } from "./wall/segments";
 
 // Hinge for Hiring - boss-POV Tal reel (720×900, 30fps, ~10.3s).
@@ -106,6 +107,11 @@ export const RemotionRoot: React.FC = () => {
           defaultProps={{ segment: seg }}
         />
       ))}
+
+      {/* ---- the message set: one line each, on-brand, under 10s ---- */}
+      <Composition id="OnTap" component={OnTap} durationInFrames={TAP_TOTAL} fps={30} width={720} height={900} />
+      <Composition id="GoodOnes" component={GoodOnes} durationInFrames={GOOD_TOTAL} fps={30} width={720} height={900} />
+      <Composition id="BangaloreHires" component={BangaloreHires} durationInFrames={BLR_TOTAL} fps={30} width={720} height={900} />
 
       {/* ---- the simple set: one loop each, under 10s, GIF-able ---- */}
       <Composition id="LoopResume" component={ResumeLoop} durationInFrames={RESUME_TOTAL} fps={30} width={720} height={900} />
